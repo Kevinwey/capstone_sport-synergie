@@ -7,8 +7,6 @@ const StyledHomeButton = styled.button`
   border: none;
   font-size: 3rem;
   color: blue;
-  width: 40vw;
-  height: 40vw;
 `;
 
 export default StyledHomeButton;
