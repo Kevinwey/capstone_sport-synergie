@@ -1,3 +1,5 @@
+import StyledHeadline from "./StyledHeadline";
+
 export default function Layout() {
-  return <h1>SportSynergie</h1>;
+  return <StyledHeadline>SportSynergie</StyledHeadline>;
 }

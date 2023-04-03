@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import sportsData from "../../lib/sports";
+import StyledSportsHeadline from "../SportList/StyledSportsHeadline";
+import StyledSportsList from "./StyledSportsList";
 
 export default function SportList() {
   const [sports, setSports] = useState([]);
@@ -17,12 +19,12 @@ export default function SportList() {
 
   return (
     <div>
-      <h1>Sports</h1>
-      <ul>
+      <StyledSportsHeadline>Sports</StyledSportsHeadline>
+      <StyledSportsList>
         {sports.map((sport) => (
           <li key={sport.id}>{sport.name}</li>
         ))}
-      </ul>
+      </StyledSportsList>
     </div>
   );
 }
