@@ -11,7 +11,10 @@ export default function SportList() {
   }, []);
 
   function getRandomSports() {
-    const randomSports = sportsData.sort(() => Math.random() - 0.5).slice(0, 3);
+    const randomSports = sportsData
+      .slice()
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3);
     return randomSports;
   }
 
