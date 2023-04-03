@@ -1,5 +1,5 @@
-import SportList from "../components/SportList";
+import Link from "next/link";
 
 export default function HomePage() {
-  return <div>GO!</div>;
+  return <Link href={"/SelectorPage"}>GO!</Link>;
 }
