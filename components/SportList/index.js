@@ -1,12 +1,12 @@
 import React from "react";
-import sportsData from "../../lib/sports";
+import sortedSportsData from "../../lib/sports";
 
 export default function SportList() {
   return (
     <div>
       <h1>Sports</h1>
       <ul>
-        {sportsData.map((sport) => (
+        {sortedSportsData.map((sport) => (
           <li key={sport.id}>{sport.name}</li>
         ))}
       </ul>

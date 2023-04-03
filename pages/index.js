@@ -1,7 +1,9 @@
+import SportList from "../components/SportList";
+
 export default function HomePage() {
   return (
     <div>
-      <h1>Hello from Next.js</h1>
+      <SportList />
     </div>
   );
 }
