@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import sportsData from "../../lib/sports";
-import StyledSportsHeadline from "../SportList/StyledSportsHeadline";
+import StyledPageHeadline from "../SportList/StyledSportsHeadline";
 import StyledSportsList from "./StyledSportsList";
 
 export default function SportList() {
@@ -22,7 +22,7 @@ export default function SportList() {
 
   return (
     <div>
-      <StyledSportsHeadline>Sports</StyledSportsHeadline>
+      <StyledPageHeadline>Sports</StyledPageHeadline>
       <StyledSportsList>
         {sports.map((sport) => (
           <li key={sport.id}>{sport.name}</li>
