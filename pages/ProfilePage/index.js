@@ -16,7 +16,7 @@ export default function ProfilePage() {
         <input id="weight" type="text" name="weight" value="84"></input>
 
         <label aria-label="height" htmlFor="height">
-          Heigth:
+          Height:
         </label>
         <input id="height" type="text" name="height" value="171"></input>
 
