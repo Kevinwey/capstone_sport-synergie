@@ -15,10 +15,10 @@ export default function ProfilePage() {
         </label>
         <input id="weight" type="text" name="weight" value="84"></input>
 
-        <label aria-label="heigth" htmlFor="heigth">
+        <label aria-label="height" htmlFor="height">
           Heigth:
         </label>
-        <input id="heigth" type="text" name="heigth" value="171"></input>
+        <input id="height" type="text" name="height" value="171"></input>
 
         <label aria-label="sport" htmlFor="sport">
           Sport:
