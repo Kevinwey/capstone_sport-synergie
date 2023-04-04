@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import sportsData from "../../lib/sports";
-import StyledPageHeadline from "../SportList/StyledSportsHeadline";
+import StyledPageHeadline from "../Layout/StyledPageHeadline";
 import StyledSportsList from "./StyledSportsList";
 
 export default function SportList() {
