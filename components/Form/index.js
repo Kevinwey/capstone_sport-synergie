@@ -1,21 +1,49 @@
+import { useState } from "react";
+import InputFields from "../InputFields";
+
 export default function Form() {
+  const [age, setAge] = useState("");
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
+
+  function handleAgeChange(event) {
+    setAge(event.target.value);
+  }
+
+  function handleHeightChange(event) {
+    setHeight(event.target.value);
+  }
+
+  function handleWeightChange(event) {
+    setWeight(event.target.value);
+  }
+
   return (
     <form aria-labelledby="user-details">
-      <h1>Please enter your Details here!</h1>
-      <label aria-label="age" htmlFor="age">
-        Age:
-      </label>
-      <input type="text" id="age" name="age" />
-
-      <label aria-label="weight" htmlFor="weight">
-        Weight:
-      </label>
-      <input id="weight" type="text" name="weight"></input>
-
-      <label aria-label="height" htmlFor="height">
-        Height:
-      </label>
-      <input id="height" type="text" name="height"></input>
+      <legend>
+        <h2>Please enter your details here!</h2>
+      </legend>
+      <InputFields
+        label="Age:"
+        type="text"
+        name="age"
+        value={age}
+        onChange={handleAgeChange}
+      />
+      <InputFields
+        label="Weight(kg):"
+        type="text"
+        name="weight"
+        value={weight}
+        onChange={handleWeightChange}
+      />
+      <InputFields
+        label="Height(m):"
+        type="text"
+        name="height"
+        value={height}
+        onChange={handleHeightChange}
+      />
 
       <h2>Physique</h2>
 
