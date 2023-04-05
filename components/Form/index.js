@@ -2,19 +2,19 @@ import InputFields from "../InputFields";
 import Checkbox from "../Checkbox";
 import SelectInput from "../SelectInput";
 
-export default function Form({
-  weight,
-  height,
-  age,
-  intensity,
-  physique,
-  fitnessLevel,
-  timePerWeek,
-  handleChange,
-  onChange,
-  category,
-  preference,
-}) {
+export default function Form({ formData, handleChange, onChange }) {
+  const {
+    age,
+    height,
+    weight,
+    intensity,
+    category,
+    preference,
+    physique,
+    fitnessLevel,
+    timePerWeek,
+  } = formData;
+
   return (
     <form aria-labelledby="user-details">
       <legend>

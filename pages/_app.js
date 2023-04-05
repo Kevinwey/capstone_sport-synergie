@@ -44,26 +44,6 @@ export default function App({ Component, pageProps }) {
     inputFields[name](value);
   }
 
-  // function handleAgeChange(event) {
-  //   setAge(event.target.value);
-  // }
-
-  // function handleHeightChange(event) {
-  //   setHeight(event.target.value);
-  // }
-
-  // function handleWeightChange(event) {
-  //   setWeight(event.target.value);
-  // }
-
-  // function handleIntensityChange(event) {
-  //   setIntensity(event.target.value);
-  // }
-
-  // function handleCategoryChange(event) {
-  //   setCategory(event.target.value);
-  // }
-
   function handleChange(type, name) {
     const stateVariables = {
       physique: [physique, setPhysique],
@@ -85,15 +65,17 @@ export default function App({ Component, pageProps }) {
       <Layout />
       <Component
         {...pageProps}
-        age={age}
-        height={height}
-        weight={weight}
-        intensity={intensity}
-        category={category}
-        physique={physique}
-        fitnessLevel={fitnessLevel}
-        timePerWeek={timePerWeek}
-        preference={preference}
+        formData={{
+          age,
+          height,
+          weight,
+          intensity,
+          category,
+          physique,
+          fitnessLevel,
+          timePerWeek,
+          preference,
+        }}
         onChange={handleInputChange}
         handleChange={handleChange}
       />
