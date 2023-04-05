@@ -1,4 +1,4 @@
-export default function Checkbox({ name, label, checked, onChange }) {
+export default function Radiobox({ name, label, checked, onChange }) {
   return (
     <div>
       <input

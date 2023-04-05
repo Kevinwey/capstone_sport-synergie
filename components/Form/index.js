@@ -1,10 +1,10 @@
 import InputFields from "../InputFields";
-import Checkbox from "../Checkbox";
 import SelectInput from "../SelectInput";
 import Link from "next/link";
 import StyledPageHeadline from "../Layout/StyledPageHeadline";
 import styled from "styled-components";
 import StyledButton from "../Layout/StyledButton";
+import Radiobox from "../Radiobox";
 
 export default function Form({ formData, handleChange, onChange }) {
   const {
@@ -49,7 +49,7 @@ export default function Form({ formData, handleChange, onChange }) {
       <h2>Physique</h2>
 
       {physique.map(({ name, checked }) => (
-        <Checkbox
+        <Radiobox
           key={name}
           name={"physique"}
           label={name}
@@ -61,7 +61,7 @@ export default function Form({ formData, handleChange, onChange }) {
       <h2>Fitness-Level</h2>
 
       {fitnessLevel.map(({ name, checked }) => (
-        <Checkbox
+        <Radiobox
           key={name}
           name={"fitnessLevel"}
           label={name}
@@ -73,7 +73,7 @@ export default function Form({ formData, handleChange, onChange }) {
       <h2>Time per week</h2>
 
       {timePerWeek.map(({ name, checked }) => (
-        <Checkbox
+        <Radiobox
           key={name}
           label={name}
           name={"timesPerWeek"}
@@ -98,7 +98,7 @@ export default function Form({ formData, handleChange, onChange }) {
       <h2>Preference</h2>
 
       {preference.map(({ name, checked }) => (
-        <Checkbox
+        <Radiobox
           key={name}
           label={name}
           checked={checked}

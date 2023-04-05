@@ -54,7 +54,9 @@ export default function App({ Component, pageProps }) {
 
     const [state, setState] = stateVariables[type];
     const newState = state.map((item) =>
-      item.name === name ? { ...item, checked: !item.checked } : item
+      item.name === name
+        ? { ...item, checked: true }
+        : { ...item, checked: false }
     );
 
     setState(newState);
