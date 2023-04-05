@@ -2,9 +2,9 @@ export default function Checkbox({ name, label, checked, onChange }) {
   return (
     <div>
       <input
-        id={name}
+        id={label}
         name={name}
-        type="checkbox"
+        type="radio"
         checked={checked}
         onChange={onChange}
       ></input>

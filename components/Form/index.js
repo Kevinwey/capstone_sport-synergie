@@ -1,6 +1,10 @@
 import InputFields from "../InputFields";
 import Checkbox from "../Checkbox";
 import SelectInput from "../SelectInput";
+import Link from "next/link";
+import StyledPageHeadline from "../Layout/StyledPageHeadline";
+import styled from "styled-components";
+import StyledButton from "../Layout/StyledButton";
 
 export default function Form({ formData, handleChange, onChange }) {
   const {
@@ -16,9 +20,9 @@ export default function Form({ formData, handleChange, onChange }) {
   } = formData;
 
   return (
-    <form aria-labelledby="user-details">
+    <StyledForm aria-labelledby="user-details">
       <legend>
-        <h2>Please enter your details here!</h2>
+        <StyledPageHeadline>MySettings</StyledPageHeadline>
       </legend>
       <InputFields
         label="Age:"
@@ -35,7 +39,7 @@ export default function Form({ formData, handleChange, onChange }) {
         onChange={onChange}
       />
       <InputFields
-        label="Height(m):"
+        label="Height(cm):"
         type="text"
         name="height"
         value={height}
@@ -47,6 +51,7 @@ export default function Form({ formData, handleChange, onChange }) {
       {physique.map(({ name, checked }) => (
         <Checkbox
           key={name}
+          name={"physique"}
           label={name}
           checked={checked}
           onChange={() => handleChange("physique", name)}
@@ -58,6 +63,7 @@ export default function Form({ formData, handleChange, onChange }) {
       {fitnessLevel.map(({ name, checked }) => (
         <Checkbox
           key={name}
+          name={"fitnessLevel"}
           label={name}
           checked={checked}
           onChange={() => handleChange("fitnessLevel", name)}
@@ -70,6 +76,7 @@ export default function Form({ formData, handleChange, onChange }) {
         <Checkbox
           key={name}
           label={name}
+          name={"timesPerWeek"}
           checked={checked}
           onChange={() => handleChange("timePerWeek", name)}
         />
@@ -102,7 +109,17 @@ export default function Form({ formData, handleChange, onChange }) {
       <SelectInput onChange={onChange} />
       <p>Selected category: {category}</p>
 
-      <button type="submit">Synergy</button>
-    </form>
+      <Link href={"/SelectorPage"}>
+        <StyledButton type="submit">Synergy</StyledButton>
+      </Link>
+    </StyledForm>
   );
 }
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+`;
