@@ -1,10 +1,21 @@
 import { useState } from "react";
 import InputFields from "../InputFields";
+import Checkbox from "../Checkbox";
 
 export default function Form() {
   const [age, setAge] = useState("");
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
+  const [physique, setPhysique] = useState([
+    { name: "slim", checked: false },
+    { name: "normal", checked: false },
+    { name: "strong", checked: false },
+  ]);
+  const [fitnessLevel, setFitnessLevel] = useState([
+    { name: "unatheltic", checked: false },
+    { name: "fit", checked: false },
+    { name: "muscular", checked: false },
+  ]);
 
   function handleAgeChange(event) {
     setAge(event.target.value);
@@ -16,6 +27,20 @@ export default function Form() {
 
   function handleWeightChange(event) {
     setWeight(event.target.value);
+  }
+
+  function handleChange(type, name) {
+    if (type === "physique") {
+      const newPhysique = physique.map((item) =>
+        item.name === name ? { ...item, checked: !item.checked } : item
+      );
+      setPhysique(newPhysique);
+    } else if (type === "fitnessLevel") {
+      const newFitnessLevel = fitnessLevel.map((item) =>
+        item.name === name ? { ...item, checked: !item.checked } : item
+      );
+      setFitnessLevel(newFitnessLevel);
+    }
   }
 
   return (
@@ -47,33 +72,25 @@ export default function Form() {
 
       <h2>Physique</h2>
 
-      <input id="slim" type="checkbox" name="slim"></input>
-      <label aria-label="slim" htmlFor="slim">
-        Slim
-      </label>
-      <input id="normal" type="checkbox" name="normal"></input>
-      <label aria-label="normal" htmlFor="normal">
-        Normal
-      </label>
-      <input id="Strong" type="checkbox" name="Strong"></input>
-      <label aria-label="Strong" htmlFor="Strong">
-        Strong
-      </label>
+      {physique.map(({ name, checked }) => (
+        <Checkbox
+          key={name}
+          label={name}
+          checked={checked}
+          onChange={() => handleChange("physique", name)}
+        />
+      ))}
 
       <h2>Fitness-Level</h2>
 
-      <input id="unathletic" type="checkbox" name="unathletic"></input>
-      <label aria-label="unathletic" htmlFor="unathletic">
-        Unathletic
-      </label>
-      <input id="fit" type="checkbox" name="fit"></input>
-      <label aria-label="fit" htmlFor="fit">
-        Fit
-      </label>
-      <input id="muscular" type="checkbox" name="muscular"></input>
-      <label aria-label="muscular" htmlFor="muscular">
-        Muscular
-      </label>
+      {fitnessLevel.map(({ name, checked }) => (
+        <Checkbox
+          key={name}
+          label={name}
+          checked={checked}
+          onChange={() => handleChange("fitnessLevel", name)}
+        />
+      ))}
 
       <h2>Time per week</h2>
 
