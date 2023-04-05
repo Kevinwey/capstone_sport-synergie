@@ -11,6 +11,7 @@ export default function FormPage({
   handleChange,
   onChange,
   preference,
+  category,
 }) {
   return (
     <Form
@@ -24,6 +25,7 @@ export default function FormPage({
       onChange={onChange}
       handleChange={handleChange}
       preference={preference}
+      category={category}
     />
   );
 }
