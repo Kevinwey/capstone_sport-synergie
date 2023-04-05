@@ -1,20 +1,35 @@
 import { useState } from "react";
 import InputFields from "../InputFields";
 import Checkbox from "../Checkbox";
+import SelectInput from "../SelectInput";
 
 export default function Form() {
   const [age, setAge] = useState("");
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
+  const [intensity, setIntensity] = useState("");
+  const [category, setCategory] = useState("All");
+
   const [physique, setPhysique] = useState([
-    { name: "slim", checked: false },
-    { name: "normal", checked: false },
-    { name: "strong", checked: false },
+    { name: "Slim", checked: false },
+    { name: "Normal", checked: false },
+    { name: "Strong", checked: false },
   ]);
   const [fitnessLevel, setFitnessLevel] = useState([
-    { name: "unatheltic", checked: false },
-    { name: "fit", checked: false },
-    { name: "muscular", checked: false },
+    { name: "Unatheltic", checked: false },
+    { name: "Fit", checked: false },
+    { name: "Muscular", checked: false },
+  ]);
+  const [timePerWeek, setTimePerWeek] = useState([
+    { name: "2-3x", checked: false },
+    { name: "3-4x", checked: false },
+    { name: "4+", checked: false },
+  ]);
+  const [preference, setPreference] = useState([
+    { name: "Teamsport", checked: false },
+    { name: "Individual sports", checked: false },
+    { name: "Indoor", checked: false },
+    { name: "Outdoor", checked: false },
   ]);
 
   function handleAgeChange(event) {
@@ -29,18 +44,28 @@ export default function Form() {
     setWeight(event.target.value);
   }
 
+  function handleIntensityChange(event) {
+    setIntensity(event.target.value);
+  }
+
+  function handleCategoryChange(event) {
+    setCategory(event.target.value);
+  }
+
   function handleChange(type, name) {
-    if (type === "physique") {
-      const newPhysique = physique.map((item) =>
-        item.name === name ? { ...item, checked: !item.checked } : item
-      );
-      setPhysique(newPhysique);
-    } else if (type === "fitnessLevel") {
-      const newFitnessLevel = fitnessLevel.map((item) =>
-        item.name === name ? { ...item, checked: !item.checked } : item
-      );
-      setFitnessLevel(newFitnessLevel);
-    }
+    const stateVariables = {
+      physique: [physique, setPhysique],
+      fitnessLevel: [fitnessLevel, setFitnessLevel],
+      timePerWeek: [timePerWeek, setTimePerWeek],
+      preference: [preference, setPreference],
+    };
+
+    const [state, setState] = stateVariables[type];
+    const newState = state.map((item) =>
+      item.name === name ? { ...item, checked: !item.checked } : item
+    );
+
+    setState(newState);
   }
 
   return (
@@ -94,70 +119,40 @@ export default function Form() {
 
       <h2>Time per week</h2>
 
-      <input
-        id="twoToThreeTimes"
-        type="checkbox"
-        name="twoToThreeTimes"
-      ></input>
-      <label aria-label="twoToThreeTimes" htmlFor="twoToThreeTimes">
-        2-3x
-      </label>
-      <input
-        id="threeToFourTimes"
-        type="checkbox"
-        name="threeToFourTimes"
-      ></input>
-      <label aria-label="threeToFourTimes" htmlFor="threeToFourTimes">
-        3-4x
-      </label>
-      <input
-        id="fourOrMoreTimes"
-        type="checkbox"
-        name="fourOrMoreTimes"
-      ></input>
-      <label aria-label="fourOrMoreTimes" htmlFor="fourOrMoreTimes">
-        4+
-      </label>
+      {timePerWeek.map(({ name, checked }) => (
+        <Checkbox
+          key={name}
+          label={name}
+          checked={checked}
+          onChange={() => handleChange("timePerWeek", name)}
+        />
+      ))}
 
       <h2>Intensity</h2>
 
-      <div>20%</div>
-      <input step={1} min={20} type="range" max={90} name="intensity"></input>
-      <div>90%</div>
+      <input
+        step={5}
+        type="range"
+        min={20}
+        max={90}
+        value={intensity}
+        onChange={handleIntensityChange}
+      />
+      <div>{intensity}%</div>
 
       <h2>Preference</h2>
 
-      <input id="Teamsport" type="checkbox" name="Teamsport"></input>
-      <label aria-label="Teamsport" htmlFor="Teamsport">
-        Teamsport
-      </label>
-      <input
-        id="individualSports"
-        type="checkbox"
-        name="individualSports"
-      ></input>
-      <label aria-label="individualSports" htmlFor="individualSports">
-        Individual sports
-      </label>
+      {preference.map(({ name, checked }) => (
+        <Checkbox
+          key={name}
+          label={name}
+          checked={checked}
+          onChange={() => handleChange("preference", name)}
+        />
+      ))}
 
-      <input id="Indoor" type="checkbox" name="Indoor"></input>
-      <label aria-label="Indoor" htmlFor="Indoor">
-        Indoor
-      </label>
-      <input id="Outdoor" type="checkbox" name="Outdoor"></input>
-      <label aria-label="Outdoor" htmlFor="Outdoor">
-        Outdoor
-      </label>
-      <label htmlFor="category">Category</label>
-      <select id="category" name="category" placeholder="category">
-        <option value="combatSports">Combat sports</option>
-        <option value="enduranceSports">Endurance sports</option>
-        <option value="waterSports">Water sports</option>
-        <option value="extremeSports">Extreme sports</option>
-        <option value="allCategorys" selected>
-          All
-        </option>
-      </select>
+      <SelectInput onChange={handleCategoryChange} />
+      <p>Selected category: {category}</p>
 
       <button type="submit">Synergy</button>
     </form>
