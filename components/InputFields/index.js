@@ -2,7 +2,7 @@ export default function InputFields({ name, label, type, value, onChange }) {
   return (
     <div>
       <label aria-label={name} htmlFor={name}>
-        {label}
+        <strong>{label}</strong>
       </label>
       <input
         id={name}

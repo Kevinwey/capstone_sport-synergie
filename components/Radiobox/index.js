@@ -1,10 +1,10 @@
-export default function Radiobox({ name, label, checked, onChange }) {
+export default function Radiobox({ name, label, type, checked, onChange }) {
   return (
     <div>
       <input
         id={label}
         name={name}
-        type="radio"
+        type={type}
         checked={checked}
         onChange={onChange}
       ></input>

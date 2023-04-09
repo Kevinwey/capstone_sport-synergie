@@ -53,14 +53,28 @@ export default function App({ Component, pageProps }) {
     };
 
     const [state, setState] = stateVariables[type];
-    const newState = state.map((item) =>
+    const newState =
+      type === "preference"
+        ? updatePreference(state, name)
+        : updateSingleItem(state, name);
+
+    setState(newState);
+  }
+
+  function updateSingleItem(state, name) {
+    return state.map((item) =>
       item.name === name
         ? { ...item, checked: true }
         : { ...item, checked: false }
     );
-
-    setState(newState);
   }
+
+  function updatePreference(state, name) {
+    return state.map((item) =>
+      item.name === name ? { ...item, checked: !item.checked } : item
+    );
+  }
+
   return (
     <>
       <GlobalStyle />
