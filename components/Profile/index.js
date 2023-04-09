@@ -52,7 +52,9 @@ export default function Profile({ formData, selectedSport }) {
       </StyledList>
 
       <h3>My Sport</h3>
-      <StyledProfileInfos>{selectedSport.name}</StyledProfileInfos>
+      <StyledProfileInfos>
+        {selectedSport ? selectedSport.name : ""}
+      </StyledProfileInfos>
 
       <Link href={"/FormPage"}>
         <StyledButton>MySettings</StyledButton>
