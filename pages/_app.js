@@ -52,6 +52,7 @@ export default function App({ Component, pageProps }) {
 
   function handleSelectSport(sport) {
     setSelectedSport(sport);
+    console.log(selectedSport);
   }
 
   function handleNewRoll() {

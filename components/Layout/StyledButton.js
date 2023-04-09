@@ -9,7 +9,7 @@ const StyledButton = styled.button`
   font-size: 1.5rem;
   cursor: pointer;
   width: 150px;
-  margin: 10px;
+  margin: 40px 10px;
 `;
 
 export default StyledButton;
