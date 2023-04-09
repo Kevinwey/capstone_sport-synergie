@@ -5,33 +5,12 @@ import styled from "styled-components";
 import Link from "next/link";
 import StyledButton from "../Layout/StyledButton";
 
-export default function SportList() {
-  const [sports, setSports] = useState([]);
-  const [selectedSport, setSelectedSport] = useState(null);
-
-  useEffect(() => {
-    setSports(getRandomSports());
-  }, []);
-
-  function getRandomSports() {
-    const randomSports = sportsData
-      .slice()
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 3);
-    return randomSports;
-  }
-
-  sports.sort((a, b) => a.name.localeCompare(b.name));
-
-  function handleSelectSport(sport) {
-    setSelectedSport(sport);
-  }
-
-  function handleNewRoll() {
-    setSports(getRandomSports());
-    setSelectedSport(null);
-  }
-
+export default function SportList({
+  sports,
+  selectedSport,
+  onSelectSport,
+  onNewRoll,
+}) {
   return (
     <StyledSportContainer>
       <StyledPageHeadline>Sports</StyledPageHeadline>
@@ -41,7 +20,7 @@ export default function SportList() {
           type="button"
           key={sport.id}
           selected={sport === selectedSport}
-          onClick={() => handleSelectSport(sport)}
+          onClick={() => onSelectSport(sport)}
         >
           {sport.name}
         </StyledSelectButton>
@@ -52,7 +31,7 @@ export default function SportList() {
       )}
 
       <StyledButtonContainer>
-        <StyledButton onClick={handleNewRoll}>NewRoll</StyledButton>
+        <StyledButton onClick={onNewRoll}>NewRoll</StyledButton>
         <Link href={"/ProfilePage"}>
           <StyledButton>Start!</StyledButton>
         </Link>
