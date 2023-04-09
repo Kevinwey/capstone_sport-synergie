@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledAppHeadline = styled.h1`
-  color: blue;
+  color: #0047ab;
   text-align: center;
   font-size: 3rem;
 `;

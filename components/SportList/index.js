@@ -27,12 +27,18 @@ export default function SportList() {
     setSelectedSport(sport);
   }
 
+  function handleNewRoll() {
+    setSports(getRandomSports());
+    setSelectedSport(null);
+  }
+
   return (
-    <StyledContainer>
+    <StyledSportContainer>
       <StyledPageHeadline>Sports</StyledPageHeadline>
 
       {sports.map((sport) => (
         <StyledSelectButton
+          type="button"
           key={sport.id}
           selected={sport === selectedSport}
           onClick={() => handleSelectSport(sport)}
@@ -40,20 +46,24 @@ export default function SportList() {
           {sport.name}
         </StyledSelectButton>
       ))}
+
       {selectedSport && (
         <StyledDescription>{selectedSport.description}</StyledDescription>
       )}
 
-      <Link href={"/ProfilePage"}>
-        <StyledButton>MyProfile</StyledButton>
-      </Link>
-    </StyledContainer>
+      <StyledButtonContainer>
+        <StyledButton onClick={handleNewRoll}>NewRoll</StyledButton>
+        <Link href={"/ProfilePage"}>
+          <StyledButton>Start!</StyledButton>
+        </Link>
+      </StyledButtonContainer>
+    </StyledSportContainer>
   );
 }
 
 const StyledSelectButton = styled.button`
-  background-color: ${(props) => (props.selected ? "grey" : "white")};
-  color: ${(props) => (props.selected ? "blue" : "black")};
+  background-color: ${(props) => (props.selected ? "lightgrey" : "#F8F8FF")};
+  color: ${(props) => (props.selected ? "#0047AB" : "black")};
   border: 1px solid black;
   border-radius: 10px;
   padding: 10px;
@@ -63,7 +73,7 @@ const StyledSelectButton = styled.button`
   cursor: pointer;
 `;
 
-const StyledContainer = styled.div`
+const StyledSportContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -75,8 +85,15 @@ const StyledDescription = styled.p`
   margin: 10px;
   text-align: center;
   width: 300px;
-  color: grey;
-  height: 180px;
+  color: #0047ab;
+  height: 210px;
   border: 1px dotted black;
   border-radius: 10px;
+`;
+
+const StyledButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 300px;
 `;
