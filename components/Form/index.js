@@ -1,10 +1,11 @@
 import InputFields from "../InputFields";
 import SelectInput from "../SelectInput";
-import Link from "next/link";
 import StyledPageHeadline from "../Layout/StyledPageHeadline";
 import styled from "styled-components";
 import StyledButton from "../Layout/StyledButton";
 import Radiobox from "../Radiobox";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function Form({ formData, onChange, handleChange }) {
   const {
@@ -19,15 +20,34 @@ export default function Form({ formData, onChange, handleChange }) {
     timePerWeek,
   } = formData;
 
-  const disabled =
-    age.length !== 2 ||
-    Number(weight) < 30 ||
-    Number(weight) > 180 ||
-    Number(height) < 60 ||
-    Number(height) > 220;
+  const router = useRouter();
+  const [errors, setErrors] = useState([]);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    let newErrors = [];
+
+    if (age.length !== 2) {
+      newErrors.push("Please enter a valid age.");
+    }
+    if (Number(weight) < 30 || Number(weight) > 180) {
+      newErrors.push("Please enter a weight between 30kg and 180kg.");
+    }
+    if (Number(height) < 60 || Number(height) > 220) {
+      newErrors.push("Please enter a height between 60cm and 220cm.");
+    }
+
+    setErrors(newErrors);
+
+    if (newErrors.length === 0) {
+      event.target.reset();
+      router.push("/SelectorPage");
+    }
+  }
 
   return (
-    <StyledForm aria-labelledby="user-details">
+    <StyledForm aria-labelledby="user-details" onSubmit={handleSubmit}>
       <legend>
         <StyledPageHeadline>MySettings</StyledPageHeadline>
       </legend>
@@ -38,6 +58,7 @@ export default function Form({ formData, onChange, handleChange }) {
         name="age"
         value={age}
         onChange={onChange}
+        required
       />
       <InputFields
         label="Weight(kg)*:"
@@ -45,6 +66,7 @@ export default function Form({ formData, onChange, handleChange }) {
         name="weight"
         value={weight}
         onChange={onChange}
+        required
       />
       <InputFields
         label="Height(cm)*:"
@@ -52,6 +74,7 @@ export default function Form({ formData, onChange, handleChange }) {
         name="height"
         value={height}
         onChange={onChange}
+        required
       />
 
       <h2>Physique</h2>
@@ -122,16 +145,15 @@ export default function Form({ formData, onChange, handleChange }) {
       <SelectInput onChange={onChange} />
       <p>Selected category: {category}</p>
 
-      {disabled && (
-        <StyledError>
-          Please fill out all required fields with valid inputs.
-        </StyledError>
+      {errors.length > 0 && (
+        <ul>
+          {errors.map((error) => (
+            <StyledError key={error}>{error}</StyledError>
+          ))}
+        </ul>
       )}
-      <Link href={"/SelectorPage"}>
-        <StyledButton type="submit" disabled={disabled}>
-          Synergy
-        </StyledButton>
-      </Link>
+
+      <StyledButton type="submit">Synergy</StyledButton>
     </StyledForm>
   );
 }
@@ -144,8 +166,8 @@ const StyledForm = styled.form`
   margin: 0 auto;
 `;
 
-const StyledError = styled.p`
+const StyledError = styled.li`
   color: red;
- 
+  list-style: none;
   }
 `;
