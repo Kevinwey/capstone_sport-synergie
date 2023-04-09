@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import sportsData from "../../lib/sports";
 import StyledPageHeadline from "../Layout/StyledPageHeadline";
 import StyledSportsList from "./StyledSportsList";
+import Link from "next/link";
+import StyledButton from "../Layout/StyledButton";
 
 export default function SportList() {
   const [sports, setSports] = useState([]);
@@ -27,6 +29,9 @@ export default function SportList() {
         {sports.map((sport) => (
           <li key={sport.id}>{sport.name}</li>
         ))}
+        <Link href={"/ProfilePage"}>
+          <StyledButton>MyProfile</StyledButton>
+        </Link>
       </StyledSportsList>
     </div>
   );
