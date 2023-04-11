@@ -28,8 +28,8 @@ export default function Form({ formData, onChange, handleChange }) {
 
     let newErrors = [];
 
-    if (age.length !== 2) {
-      newErrors.push("Please enter a valid age.");
+    if (Number(age) < 12 || Number(age) > 99) {
+      newErrors.push("Please enter a age between 12 and 99.");
     }
     if (Number(weight) < 30 || Number(weight) > 180) {
       newErrors.push("Please enter a weight between 30kg and 180kg.");
