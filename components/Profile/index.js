@@ -3,7 +3,7 @@ import StyledButton from "../Layout/StyledButton";
 import StyledPageHeadline from "../Layout/StyledPageHeadline";
 import styled from "styled-components";
 
-export default function Profile({ formData }) {
+export default function Profile({ formData, selectedSport }) {
   const {
     age,
     height,
@@ -17,45 +17,44 @@ export default function Profile({ formData }) {
   return (
     <StyledContainer>
       <StyledPageHeadline>MyProfile</StyledPageHeadline>
-      <p>
-        <strong>Age:</strong> {age}
-      </p>
-      <p>
-        <strong>Height:</strong> {height}
-      </p>
-      <p>
-        <strong>Weight:</strong> {weight}
-      </p>
-      <p>
-        <strong>Intensity:</strong> {intensity}%
-      </p>
 
-      <p>
-        <strong>Physique:</strong>
-      </p>
+      <h3>Age:</h3>
+      <StyledProfileInfos>{age}</StyledProfileInfos>
+
+      <h3>Height:</h3>
+      <StyledProfileInfos>{height}</StyledProfileInfos>
+
+      <h3>Weight:</h3>
+      <StyledProfileInfos>{weight}</StyledProfileInfos>
+
+      <h3>Intensity:</h3>
+      <StyledProfileInfos>{intensity}%</StyledProfileInfos>
+
+      <h3>Physique:</h3>
       <StyledList>
         {physique.map(
           ({ name, checked }) => checked && <li key={name}>{name}</li>
         )}
       </StyledList>
 
-      <p>
-        <strong>Fitness Level:</strong>
-      </p>
+      <h3>Fitness Level:</h3>
       <StyledList>
         {fitnessLevel.map(
           ({ name, checked }) => checked && <li key={name}>{name}</li>
         )}
       </StyledList>
 
-      <p>
-        <strong>Time per week:</strong>
-      </p>
+      <h3>Time per week:</h3>
       <StyledList>
         {timePerWeek.map(
           ({ name, checked }) => checked && <li key={name}>{name}</li>
         )}
       </StyledList>
+
+      <h3>My Sport</h3>
+      <StyledProfileInfos>
+        {selectedSport ? selectedSport.name : ""}
+      </StyledProfileInfos>
 
       <Link href={"/FormPage"}>
         <StyledButton>MySettings</StyledButton>
@@ -76,8 +75,16 @@ const StyledList = styled.ul`
   text-align: center;
   margin: 0 auto;
   padding: 0;
+  color: #0047ab;
+  font-weight: bold;
 `;
 
 const StyledDetails = styled.p`
   font-size: 1.2rem;
+`;
+
+const StyledProfileInfos = styled.p`
+  color: #0047ab;
+  font-weight: bold;
+  margin: 0;
 `;

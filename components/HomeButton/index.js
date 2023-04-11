@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function HomeButton() {
   return (
     <StyledHomeButtonContainer>
-      <Link href={"/SelectorPage"}>
+      <Link href={"/FormPage"}>
         <StyledHomeButton>GO!</StyledHomeButton>
       </Link>
     </StyledHomeButtonContainer>

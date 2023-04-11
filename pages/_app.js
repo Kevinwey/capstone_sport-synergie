@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import GlobalStyle from "../styles";
+import sportsData from "../lib/sports";
 
 export default function App({ Component, pageProps }) {
   const [formData, setFormData] = useState({
@@ -31,6 +32,32 @@ export default function App({ Component, pageProps }) {
       { name: "Outdoor", checked: false },
     ],
   });
+
+  const [sports, setSports] = useState([]);
+  const [selectedSport, setSelectedSport] = useState(null);
+
+  useEffect(() => {
+    setSports(getRandomSports());
+  }, []);
+
+  function getRandomSports() {
+    const randomSports = sportsData
+      .slice()
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3);
+    return randomSports;
+  }
+
+  sports.sort((a, b) => a.name.localeCompare(b.name));
+
+  function handleSelectSport(sport) {
+    setSelectedSport(sport);
+  }
+
+  function handleNewRoll() {
+    setSports(getRandomSports());
+    setSelectedSport(null);
+  }
 
   function handleInputChange(event) {
     const { name, value } = event.target;
@@ -74,6 +101,10 @@ export default function App({ Component, pageProps }) {
         formData={formData}
         onChange={handleInputChange}
         handleChange={handleChange}
+        sports={sports}
+        selectedSport={selectedSport}
+        onSelectSport={handleSelectSport}
+        onNewRoll={handleNewRoll}
       />
     </>
   );
