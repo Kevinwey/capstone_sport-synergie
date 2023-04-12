@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import sportsData from "../../lib/sports";
 import StyledPageHeadline from "../Layout/StyledPageHeadline";
 import styled from "styled-components";
 import Link from "next/link";
@@ -18,7 +17,7 @@ export default function SportList({
       {sports.map((sport) => (
         <StyledSelectButton
           type="button"
-          key={sport.id}
+          key={sport.name}
           selected={sport === selectedSport}
           onClick={() => onSelectSport(sport)}
         >

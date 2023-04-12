@@ -17,6 +17,7 @@ export default function SportDetails({
         <p>{level}</p>
         <StyledLevelButton onClick={onIncrement}>+</StyledLevelButton>
       </StyledSection>
+      <h2>SportInvest</h2>
       <Link href={"/ProfilePage"}>
         <StyledBackButton>Back</StyledBackButton>
       </Link>
