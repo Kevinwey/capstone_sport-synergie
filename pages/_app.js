@@ -34,7 +34,38 @@ export default function App({ Component, pageProps }) {
   });
 
   const [sports, setSports] = useState([]);
-  const [selectedSport, setSelectedSport] = useState(null);
+  const [selectedSport, setSelectedSport] = useState("");
+  const [level, setLevel] = useState("Beginner");
+
+  useEffect(() => {
+    setLevel(localStorage.getItem(selectedSport.name) || "Beginner");
+  }, [selectedSport.name]);
+
+  function handleDecrement() {
+    setLevel((prevLevel) => {
+      let newLevel = prevLevel;
+      if (prevLevel === "Intermediate") {
+        newLevel = "Beginner";
+      } else if (prevLevel === "Advanced") {
+        newLevel = "Intermediate";
+      }
+      localStorage.setItem(selectedSport.name, newLevel);
+      return newLevel;
+    });
+  }
+
+  function handleIncrement() {
+    setLevel((prevLevel) => {
+      let newLevel = prevLevel;
+      if (prevLevel === "Beginner") {
+        newLevel = "Intermediate";
+      } else if (prevLevel === "Intermediate") {
+        newLevel = "Advanced";
+      }
+      localStorage.setItem(selectedSport.name, newLevel);
+      return newLevel;
+    });
+  }
 
   useEffect(() => {
     setSports(getRandomSports());
@@ -105,6 +136,9 @@ export default function App({ Component, pageProps }) {
         selectedSport={selectedSport}
         onSelectSport={handleSelectSport}
         onNewRoll={handleNewRoll}
+        level={level}
+        onDecrement={handleDecrement}
+        onIncrement={handleIncrement}
       />
     </>
   );
