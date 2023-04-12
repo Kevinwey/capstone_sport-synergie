@@ -38,8 +38,10 @@ export default function App({ Component, pageProps }) {
   const [level, setLevel] = useState("Beginner");
 
   useEffect(() => {
-    setLevel(localStorage.getItem(selectedSport.name) || "Beginner");
-  }, [selectedSport.name]);
+    if (selectedSport && selectedSport.name) {
+      setLevel(localStorage.getItem(selectedSport.name) || "Beginner");
+    }
+  }, [selectedSport]);
 
   function handleDecrement() {
     setLevel((prevLevel) => {
