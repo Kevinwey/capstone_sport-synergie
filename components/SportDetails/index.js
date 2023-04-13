@@ -2,7 +2,6 @@ import StyledPageHeadline from "../Layout/StyledPageHeadline";
 import styled from "styled-components";
 import StyledButton from "../Layout/StyledButton";
 import Link from "next/link";
-import { useState } from "react";
 
 export default function SportDetails({
   selectedSport,
@@ -12,6 +11,7 @@ export default function SportDetails({
   count,
   showCount,
   onInvestClick,
+  showAside,
 }) {
   return (
     <StyledContainer>
@@ -22,9 +22,15 @@ export default function SportDetails({
         <StyledLevelButton onClick={onIncrement}>+</StyledLevelButton>
       </StyledSection>
       <h2>SportInvest</h2>
-      <StyledInvestbutton onClick={onInvestClick}>
+      <StyledInvestbutton showAside={showAside} onClick={onInvestClick}>
         {showCount ? count : "GO!"}
       </StyledInvestbutton>
+      {showAside && (
+        <StyledAside>
+          Hey, slow down there champ! Your muscles need time to regenerate after
+          a tough workout.
+        </StyledAside>
+      )}
 
       <Link href={"/ProfilePage"}>
         <StyledBackButton>Back</StyledBackButton>
@@ -41,6 +47,23 @@ const StyledInvestbutton = styled.button`
   font-size: 3rem;
   height: 8rem;
   width: 8rem;
+  opacity: ${(props) => (props.showAside ? 0.5 : 1)};
+  transition: opacity 0.5s ease-in-out;
+  position: relative;
+  z-index: ${(props) => (props.showAside ? 1 : "auto")};
+`;
+
+const StyledAside = styled.aside`
+  background: #f2f2f2;
+  border: 2px solid #0047ab;
+  color: #0047ab;
+  font-size: 1.5rem;
+  padding: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
 `;
 
 const StyledLevelButton = styled.button`

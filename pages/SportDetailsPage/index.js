@@ -8,6 +8,7 @@ export default function SportDetailsPage({
   count,
   showCount,
   onInvestClick,
+  showAside,
 }) {
   return (
     <SportDetails
@@ -18,6 +19,7 @@ export default function SportDetailsPage({
       count={count}
       showCount={showCount}
       onInvestClick={onInvestClick}
+      showAside={showAside}
     />
   );
 }

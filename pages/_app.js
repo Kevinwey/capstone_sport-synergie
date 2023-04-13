@@ -38,16 +38,13 @@ export default function App({ Component, pageProps }) {
   const [level, setLevel] = useState("Beginner");
   const [count, setCount] = useState(0);
   const [showCount, setShowCount] = useState(false);
+  const [showAside, setShowAside] = useState(false);
 
   useEffect(() => {
-    if (selectedSport && selectedSport.name) {
-      setLevel(
-        localStorage.getItem(selectedSport.name + "_level") || "Beginner"
-      );
-      setCount(
-        parseInt(localStorage.getItem(selectedSport.name + "_InvestCount")) || 0
-      );
-    }
+    setLevel(localStorage.getItem(selectedSport.name + "_level") || "Beginner");
+    setCount(
+      parseInt(localStorage.getItem(selectedSport.name + "_InvestCount")) || 0
+    );
   }, [selectedSport]);
 
   const handleInvestClick = () => {
@@ -56,6 +53,8 @@ export default function App({ Component, pageProps }) {
     );
     const today = new Date().toLocaleDateString();
     if (lastInvestmentDate === today) {
+      setShowAside(true);
+      setTimeout(() => setShowAside(false), 5000);
       return;
     }
     localStorage.setItem(selectedSport.name + "_InvestDate", today);
@@ -65,6 +64,7 @@ export default function App({ Component, pageProps }) {
       return newCount;
     });
     setShowCount(true);
+    setTimeout(() => setShowCount(false), 3000);
   };
 
   function handleDecrement() {
@@ -112,7 +112,7 @@ export default function App({ Component, pageProps }) {
 
   function handleNewRoll() {
     setSports(getRandomSports());
-    setSelectedSport(null);
+    setSelectedSport("");
   }
 
   function handleInputChange(event) {
@@ -167,6 +167,7 @@ export default function App({ Component, pageProps }) {
         onInvestClick={handleInvestClick}
         count={count}
         showCount={showCount}
+        showAside={showAside}
       />
     </>
   );
