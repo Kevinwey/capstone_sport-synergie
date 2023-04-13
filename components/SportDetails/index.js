@@ -17,12 +17,20 @@ export default function SportDetails({
     <StyledContainer>
       <StyledPageHeadline>{selectedSport.name}</StyledPageHeadline>
       <StyledSection>
-        <StyledLevelButton onClick={onDecrement}>-</StyledLevelButton>
+        <StyledLevelButton type="button" onClick={onDecrement}>
+          -
+        </StyledLevelButton>
         <p>{level}</p>
-        <StyledLevelButton onClick={onIncrement}>+</StyledLevelButton>
+        <StyledLevelButton type="button" onClick={onIncrement}>
+          +
+        </StyledLevelButton>
       </StyledSection>
       <h2>SportInvest</h2>
-      <StyledInvestbutton showAside={showAside} onClick={onInvestClick}>
+      <StyledInvestbutton
+        type="button"
+        showAside={showAside}
+        onClick={onInvestClick}
+      >
         {showCount ? count : "GO!"}
       </StyledInvestbutton>
       {showAside && (
@@ -32,12 +40,24 @@ export default function SportDetails({
         </StyledAside>
       )}
 
-      <Link href={"/ProfilePage"}>
-        <StyledBackButton>Back</StyledBackButton>
-      </Link>
+      <StyledLink href={"/ProfilePage"}>Back</StyledLink>
     </StyledContainer>
   );
 }
+
+const StyledLink = styled(Link)`
+  background-color: lightgrey;
+  color: #0047ab;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 150px;
+  margin: 40px 10px;
+  text-decoration: none;
+  text-align: center;
+`;
 
 const StyledInvestbutton = styled.button`
   background: #f2f2f2;
@@ -85,20 +105,9 @@ const StyledSection = styled.section`
   margin: 3rem 0;
 `;
 
-const StyledBackButton = styled(StyledButton)`
-  margin: 5rem 0;
-`;
-
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
-
-// {alreadyInvested && (
-//     <aside>
-//       Hey, slow down there champ! Your muscles need time to regenerate after
-//       a tough workout.
-//     </aside>
-//   )}

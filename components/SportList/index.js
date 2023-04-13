@@ -31,13 +31,25 @@ export default function SportList({
 
       <StyledButtonContainer>
         <StyledButton onClick={onNewRoll}>NewRoll</StyledButton>
-        <Link href={"/ProfilePage"}>
-          <StyledButton>Start!</StyledButton>
-        </Link>
+        <StyledLink href={"/ProfilePage"}>MyProfile</StyledLink>
       </StyledButtonContainer>
     </StyledSportContainer>
   );
 }
+
+const StyledLink = styled(Link)`
+  background-color: lightgrey;
+  color: #0047ab;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 150px;
+  margin: 40px 10px;
+  text-decoration: none;
+  text-align: center;
+`;
 
 const StyledSelectButton = styled.button`
   background-color: ${(props) => (props.selected ? "lightgrey" : "#F8F8FF")};

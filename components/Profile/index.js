@@ -1,5 +1,4 @@
 import Link from "next/link";
-import StyledButton from "../Layout/StyledButton";
 import StyledPageHeadline from "../Layout/StyledPageHeadline";
 import styled from "styled-components";
 
@@ -58,12 +57,24 @@ export default function Profile({ formData, selectedSport, level, count }) {
       <q>{level}</q>
       <StyledCount>{count}</StyledCount>
 
-      <Link href={"/FormPage"}>
-        <StyledButton>MySettings</StyledButton>
-      </Link>
+      <StyledLink href={"/FormPage"}>MySettings</StyledLink>
     </StyledContainer>
   );
 }
+
+const StyledLink = styled(Link)`
+  background-color: lightgrey;
+  color: #0047ab;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 150px;
+  margin: 40px 10px;
+  text-decoration: none;
+  text-align: center;
+`;
 
 const StyledCount = styled.p`
   background: #f2f2f2;
