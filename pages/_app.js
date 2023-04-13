@@ -36,12 +36,36 @@ export default function App({ Component, pageProps }) {
   const [sports, setSports] = useState([]);
   const [selectedSport, setSelectedSport] = useState("");
   const [level, setLevel] = useState("Beginner");
+  const [count, setCount] = useState(0);
+  const [showCount, setShowCount] = useState(false);
 
   useEffect(() => {
     if (selectedSport && selectedSport.name) {
-      setLevel(localStorage.getItem(selectedSport.name) || "Beginner");
+      setLevel(
+        localStorage.getItem(selectedSport.name + "_level") || "Beginner"
+      );
+      setCount(
+        parseInt(localStorage.getItem(selectedSport.name + "_InvestCount")) || 0
+      );
     }
   }, [selectedSport]);
+
+  const handleInvestClick = () => {
+    const lastInvestmentDate = localStorage.getItem(
+      selectedSport.name + "_InvestDate"
+    );
+    const today = new Date().toLocaleDateString();
+    if (lastInvestmentDate === today) {
+      return;
+    }
+    localStorage.setItem(selectedSport.name + "_InvestDate", today);
+    setCount((prevCount) => {
+      const newCount = prevCount + 1;
+      localStorage.setItem(selectedSport.name + "_InvestCount", newCount);
+      return newCount;
+    });
+    setShowCount(true);
+  };
 
   function handleDecrement() {
     setLevel((prevLevel) => {
@@ -51,7 +75,7 @@ export default function App({ Component, pageProps }) {
       } else if (prevLevel === "Advanced") {
         newLevel = "Intermediate";
       }
-      localStorage.setItem(selectedSport.name, newLevel);
+      localStorage.setItem(selectedSport.name + "_level", newLevel);
       return newLevel;
     });
   }
@@ -64,11 +88,10 @@ export default function App({ Component, pageProps }) {
       } else if (prevLevel === "Intermediate") {
         newLevel = "Advanced";
       }
-      localStorage.setItem(selectedSport.name, newLevel);
+      localStorage.setItem(selectedSport.name + "_level", newLevel);
       return newLevel;
     });
   }
-
   useEffect(() => {
     setSports(getRandomSports());
   }, []);
@@ -141,6 +164,9 @@ export default function App({ Component, pageProps }) {
         level={level}
         onDecrement={handleDecrement}
         onIncrement={handleIncrement}
+        onInvestClick={handleInvestClick}
+        count={count}
+        showCount={showCount}
       />
     </>
   );

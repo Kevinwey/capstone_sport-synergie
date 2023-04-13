@@ -3,7 +3,7 @@ import StyledButton from "../Layout/StyledButton";
 import StyledPageHeadline from "../Layout/StyledPageHeadline";
 import styled from "styled-components";
 
-export default function Profile({ formData, selectedSport, level }) {
+export default function Profile({ formData, selectedSport, level, count }) {
   const {
     age,
     height,
@@ -56,6 +56,7 @@ export default function Profile({ formData, selectedSport, level }) {
         <StyledProfileInfos>{selectedSport.name}</StyledProfileInfos>
       </Link>
       <q>{level}</q>
+      <p>{count}</p>
 
       <Link href={"/FormPage"}>
         <StyledButton>MySettings</StyledButton>

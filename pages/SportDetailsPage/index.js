@@ -5,6 +5,9 @@ export default function SportDetailsPage({
   level,
   onDecrement,
   onIncrement,
+  count,
+  showCount,
+  onInvestClick,
 }) {
   return (
     <SportDetails
@@ -12,6 +15,9 @@ export default function SportDetailsPage({
       level={level}
       onDecrement={onDecrement}
       onIncrement={onIncrement}
+      count={count}
+      showCount={showCount}
+      onInvestClick={onInvestClick}
     />
   );
 }
