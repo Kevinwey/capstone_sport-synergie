@@ -1,9 +1,16 @@
 import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import GlobalStyle from "../styles";
-import sportsData from "../lib/sports";
+import useSWR from "swr";
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function App({ Component, pageProps }) {
+  const { data, error, isLoading } = useSWR(
+    "https://sports.api.decathlon.com/sports?parents_only=true",
+    fetcher
+  );
+
   const [formData, setFormData] = useState({
     age: "",
     height: "",
@@ -46,6 +53,25 @@ export default function App({ Component, pageProps }) {
       parseInt(localStorage.getItem(selectedSport.name + "_InvestCount")) || 0
     );
   }, [selectedSport]);
+
+  useEffect(() => {
+    if (data) {
+      setSports(getRandomSports(data.data));
+    }
+  }, [data]);
+
+  function getRandomSports(sports) {
+    const randomSports = sports
+      .slice()
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3);
+    return randomSports;
+  }
+
+  function handleNewRoll() {
+    setSports(getRandomSports(data.data));
+    setSelectedSport("");
+  }
 
   const handleInvestClick = () => {
     const lastInvestmentDate = localStorage.getItem(
@@ -92,27 +118,9 @@ export default function App({ Component, pageProps }) {
       return newLevel;
     });
   }
-  useEffect(() => {
-    setSports(getRandomSports());
-  }, []);
-
-  function getRandomSports() {
-    const randomSports = sportsData
-      .slice()
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 3);
-    return randomSports;
-  }
-
-  sports.sort((a, b) => a.name.localeCompare(b.name));
 
   function handleSelectSport(sport) {
     setSelectedSport(sport);
-  }
-
-  function handleNewRoll() {
-    setSports(getRandomSports());
-    setSelectedSport("");
   }
 
   function handleInputChange(event) {
@@ -147,6 +155,9 @@ export default function App({ Component, pageProps }) {
       item.name === name ? { ...item, checked: !item.checked } : item
     );
   }
+
+  if (error) return <div>failed to load</div>;
+  if (isLoading) return <div>loading...</div>;
 
   return (
     <>

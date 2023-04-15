@@ -52,7 +52,11 @@ export default function Profile({ formData, selectedSport, level, count }) {
 
       <h3>My Sport</h3>
       <Link href={"/SportDetailsPage"}>
-        <StyledProfileInfos>{selectedSport.name}</StyledProfileInfos>
+        {selectedSport && (
+          <StyledProfileInfos>
+            {selectedSport.attributes.name}
+          </StyledProfileInfos>
+        )}
       </Link>
       <q>{level}</q>
       <StyledCount>{count}</StyledCount>
