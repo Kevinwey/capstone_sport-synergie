@@ -16,40 +16,32 @@ export default function Profile({ formData, selectedSport, level, count }) {
   return (
     <StyledContainer>
       <StyledPageHeadline>MyProfile</StyledPageHeadline>
-
       <h3>Age:</h3>
       <StyledProfileInfos>{age}</StyledProfileInfos>
-
       <h3>Height:</h3>
       <StyledProfileInfos>{height}</StyledProfileInfos>
-
       <h3>Weight:</h3>
       <StyledProfileInfos>{weight}</StyledProfileInfos>
-
       <h3>Intensity:</h3>
       <StyledProfileInfos>{intensity}%</StyledProfileInfos>
-
       <h3>Physique:</h3>
       <StyledList>
         {physique.map(
           ({ name, checked }) => checked && <li key={name}>{name}</li>
         )}
       </StyledList>
-
       <h3>Fitness Level:</h3>
       <StyledList>
         {fitnessLevel.map(
           ({ name, checked }) => checked && <li key={name}>{name}</li>
         )}
       </StyledList>
-
       <h3>Time per week:</h3>
       <StyledList>
         {timePerWeek.map(
           ({ name, checked }) => checked && <li key={name}>{name}</li>
         )}
       </StyledList>
-
       <h3>My Sport</h3>
       <Link href={"/SportDetailsPage"}>
         {selectedSport && (
@@ -58,9 +50,9 @@ export default function Profile({ formData, selectedSport, level, count }) {
           </StyledProfileInfos>
         )}
       </Link>
+
       <q>{level}</q>
       <StyledCount>{count}</StyledCount>
-
       <StyledLink href={"/FormPage"}>MySettings</StyledLink>
     </StyledContainer>
   );

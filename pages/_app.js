@@ -48,9 +48,14 @@ export default function App({ Component, pageProps }) {
   const [showAside, setShowAside] = useState(false);
 
   useEffect(() => {
-    setLevel(localStorage.getItem(selectedSport.name + "_level") || "Beginner");
+    setLevel(
+      localStorage.getItem(selectedSport.attributes?.name + "_level") ||
+        "Beginner"
+    );
     setCount(
-      parseInt(localStorage.getItem(selectedSport.name + "_InvestCount")) || 0
+      parseInt(
+        localStorage.getItem(selectedSport.attributes?.name + "_InvestCount")
+      ) || 0
     );
   }, [selectedSport]);
 
@@ -75,7 +80,7 @@ export default function App({ Component, pageProps }) {
 
   const handleInvestClick = () => {
     const lastInvestmentDate = localStorage.getItem(
-      selectedSport.name + "_InvestDate"
+      selectedSport.attributes.name + "_InvestDate"
     );
     const today = new Date().toLocaleDateString();
     if (lastInvestmentDate === today) {
@@ -83,10 +88,13 @@ export default function App({ Component, pageProps }) {
       setTimeout(() => setShowAside(false), 5000);
       return;
     }
-    localStorage.setItem(selectedSport.name + "_InvestDate", today);
+    localStorage.setItem(selectedSport.attributes.name + "_InvestDate", today);
     setCount((prevCount) => {
       const newCount = prevCount + 1;
-      localStorage.setItem(selectedSport.name + "_InvestCount", newCount);
+      localStorage.setItem(
+        selectedSport.attributes.name + "_InvestCount",
+        newCount
+      );
       return newCount;
     });
     setShowCount(true);
@@ -101,7 +109,7 @@ export default function App({ Component, pageProps }) {
       } else if (prevLevel === "Advanced") {
         newLevel = "Intermediate";
       }
-      localStorage.setItem(selectedSport.name + "_level", newLevel);
+      localStorage.setItem(selectedSport.attributes.name + "_level", newLevel);
       return newLevel;
     });
   }
@@ -114,7 +122,7 @@ export default function App({ Component, pageProps }) {
       } else if (prevLevel === "Intermediate") {
         newLevel = "Advanced";
       }
-      localStorage.setItem(selectedSport.name + "_level", newLevel);
+      localStorage.setItem(selectedSport.attributes.name + "_level", newLevel);
       return newLevel;
     });
   }

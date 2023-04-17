@@ -1,6 +1,5 @@
 import StyledPageHeadline from "../Layout/StyledPageHeadline";
 import styled from "styled-components";
-import StyledButton from "../Layout/StyledButton";
 import Link from "next/link";
 
 export default function SportDetails({
@@ -15,7 +14,7 @@ export default function SportDetails({
 }) {
   return (
     <StyledContainer>
-      <StyledPageHeadline>{selectedSport.name}</StyledPageHeadline>
+      <StyledPageHeadline>{selectedSport.attributes.name}</StyledPageHeadline>
       <StyledSection>
         <StyledLevelButton type="button" onClick={onDecrement}>
           -
