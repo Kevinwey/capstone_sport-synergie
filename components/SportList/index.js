@@ -17,16 +17,18 @@ export default function SportList({
       {sports.map((sport) => (
         <StyledSelectButton
           type="button"
-          key={sport.name}
+          key={sport.id}
           selected={sport === selectedSport}
           onClick={() => onSelectSport(sport)}
         >
-          {sport.name}
+          {sport.attributes.name}
         </StyledSelectButton>
       ))}
 
       {selectedSport && (
-        <StyledDescription>{selectedSport.description}</StyledDescription>
+        <StyledDescription>
+          {selectedSport.attributes.description}
+        </StyledDescription>
       )}
 
       <StyledButtonContainer>
@@ -71,14 +73,15 @@ const StyledSportContainer = styled.div`
 `;
 
 const StyledDescription = styled.p`
-  font-size: 1.2rem;
-  margin: 10px;
+  font-size: 1rem;
+  line-height: 1.5;
   text-align: center;
-  width: 300px;
   color: #0047ab;
-  height: 210px;
-  border: 1px dotted black;
-  border-radius: 10px;
+  width: 300px;
+  border: 3px dotted grey;
+  border-radius: 1rem;
+  padding: 10px;
+  margin: 20px;
 `;
 
 const StyledButtonContainer = styled.div`

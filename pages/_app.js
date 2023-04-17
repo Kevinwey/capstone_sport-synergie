@@ -1,9 +1,16 @@
 import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import GlobalStyle from "../styles";
-import sportsData from "../lib/sports";
+import useSWR from "swr";
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function App({ Component, pageProps }) {
+  const { data, error, isLoading } = useSWR(
+    "https://sports.api.decathlon.com/sports?parents_only=true",
+    fetcher
+  );
+
   const [formData, setFormData] = useState({
     age: "",
     height: "",
@@ -41,15 +48,39 @@ export default function App({ Component, pageProps }) {
   const [showAside, setShowAside] = useState(false);
 
   useEffect(() => {
-    setLevel(localStorage.getItem(selectedSport.name + "_level") || "Beginner");
+    setLevel(
+      localStorage.getItem(selectedSport.attributes?.name + "_level") ||
+        "Beginner"
+    );
     setCount(
-      parseInt(localStorage.getItem(selectedSport.name + "_InvestCount")) || 0
+      parseInt(
+        localStorage.getItem(selectedSport.attributes?.name + "_InvestCount")
+      ) || 0
     );
   }, [selectedSport]);
 
+  useEffect(() => {
+    if (data) {
+      setSports(getRandomSports(data.data));
+    }
+  }, [data]);
+
+  function getRandomSports(sports) {
+    const randomSports = sports
+      .slice()
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3);
+    return randomSports;
+  }
+
+  function handleNewRoll() {
+    setSports(getRandomSports(data.data));
+    setSelectedSport("");
+  }
+
   const handleInvestClick = () => {
     const lastInvestmentDate = localStorage.getItem(
-      selectedSport.name + "_InvestDate"
+      selectedSport.attributes.name + "_InvestDate"
     );
     const today = new Date().toLocaleDateString();
     if (lastInvestmentDate === today) {
@@ -57,10 +88,13 @@ export default function App({ Component, pageProps }) {
       setTimeout(() => setShowAside(false), 5000);
       return;
     }
-    localStorage.setItem(selectedSport.name + "_InvestDate", today);
+    localStorage.setItem(selectedSport.attributes.name + "_InvestDate", today);
     setCount((prevCount) => {
       const newCount = prevCount + 1;
-      localStorage.setItem(selectedSport.name + "_InvestCount", newCount);
+      localStorage.setItem(
+        selectedSport.attributes.name + "_InvestCount",
+        newCount
+      );
       return newCount;
     });
     setShowCount(true);
@@ -75,7 +109,7 @@ export default function App({ Component, pageProps }) {
       } else if (prevLevel === "Advanced") {
         newLevel = "Intermediate";
       }
-      localStorage.setItem(selectedSport.name + "_level", newLevel);
+      localStorage.setItem(selectedSport.attributes.name + "_level", newLevel);
       return newLevel;
     });
   }
@@ -88,31 +122,13 @@ export default function App({ Component, pageProps }) {
       } else if (prevLevel === "Intermediate") {
         newLevel = "Advanced";
       }
-      localStorage.setItem(selectedSport.name + "_level", newLevel);
+      localStorage.setItem(selectedSport.attributes.name + "_level", newLevel);
       return newLevel;
     });
   }
-  useEffect(() => {
-    setSports(getRandomSports());
-  }, []);
-
-  function getRandomSports() {
-    const randomSports = sportsData
-      .slice()
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 3);
-    return randomSports;
-  }
-
-  sports.sort((a, b) => a.name.localeCompare(b.name));
 
   function handleSelectSport(sport) {
     setSelectedSport(sport);
-  }
-
-  function handleNewRoll() {
-    setSports(getRandomSports());
-    setSelectedSport("");
   }
 
   function handleInputChange(event) {
@@ -147,6 +163,9 @@ export default function App({ Component, pageProps }) {
       item.name === name ? { ...item, checked: !item.checked } : item
     );
   }
+
+  if (error) return <div>failed to load</div>;
+  if (isLoading) return <div>loading...</div>;
 
   return (
     <>
