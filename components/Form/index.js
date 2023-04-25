@@ -83,19 +83,21 @@ export default function Form({
         onChange={onChange}
         required
       />
-
-      <h2>Physique</h2>
-
-      {physique.map(({ name, checked }) => (
-        <Radiobox
-          key={name}
-          name={"physique"}
-          type="checkbox"
-          label={name}
-          checked={checked}
-          onChange={() => handleChange("physique", name)}
-        />
-      ))}
+      <StyledPhysiqueContainer>
+        <h2>Physique</h2>
+        <StyledRadioBoxContainer>
+          {physique.map(({ name, checked }) => (
+            <Radiobox
+              key={name}
+              name={"physique"}
+              type="checkbox"
+              label={name}
+              checked={checked}
+              onChange={() => handleChange("physique", name)}
+            />
+          ))}
+        </StyledRadioBoxContainer>
+      </StyledPhysiqueContainer>
 
       <h2>Fitness-Level</h2>
 
@@ -172,6 +174,48 @@ export default function Form({
   );
 }
 
+const StyledRadioBoxContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font1);
+  color: var(--2);
+  font-weight: 490;
+  font-size: 14px;
+  div {
+    display: flex;
+    gap: 25px;
+  }
+`;
+
+const StyledPhysiqueContainer = styled.section`
+  position: absolute;
+  width: 47%;
+  height: 123px;
+  left: 0px;
+  top: 145px;
+
+  background: #393e46;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 0px 22px 22px 0px;
+  h2 {
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    color: var(--1);
+    text-shadow: var(--shadow1);
+    font-weight: 600;
+    font-family: var(--font1);
+    font-size: 1.2rem;
+  }
+`;
+
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -183,5 +227,4 @@ const StyledForm = styled.form`
 const StyledError = styled.li`
   color: red;
   list-style: none;
-  }
 `;
