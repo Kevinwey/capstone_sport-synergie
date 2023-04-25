@@ -21,13 +21,13 @@ export default function SportList({
           selected={sport === selectedSport}
           onClick={() => onSelectSport(sport)}
         >
-          {sport.attributes.name}
+          {sport.attributes?.name}
         </StyledSelectButton>
       ))}
 
       {selectedSport && (
         <StyledDescription>
-          {selectedSport.attributes.description}
+          {selectedSport.attributes?.description}
         </StyledDescription>
       )}
 

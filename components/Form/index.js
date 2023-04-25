@@ -7,13 +7,20 @@ import Radiobox from "../Radiobox";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-export default function Form({ formData, onChange, handleChange }) {
+export default function Form({
+  formData,
+  onChange,
+  handleChange,
+  onSelectChange,
+  selectedGroups,
+  filteredGroups,
+  onNewRoll,
+}) {
   const {
     age,
     height,
     weight,
     intensity,
-    category,
     preference,
     physique,
     fitnessLevel,
@@ -142,8 +149,13 @@ export default function Form({ formData, onChange, handleChange }) {
         />
       ))}
 
-      <SelectInput onChange={onChange} />
-      <p>Selected category: {category}</p>
+      <select multiple value={selectedGroups} onChange={onSelectChange}>
+        {filteredGroups.map((group) => (
+          <option key={group.id} value={group.id}>
+            {group.attributes.name}
+          </option>
+        ))}
+      </select>
 
       {errors.length > 0 && (
         <ul>
@@ -153,7 +165,9 @@ export default function Form({ formData, onChange, handleChange }) {
         </ul>
       )}
 
-      <StyledButton type="submit">Synergy</StyledButton>
+      <StyledButton type="submit" onClick={onNewRoll}>
+        Synergy
+      </StyledButton>
     </StyledForm>
   );
 }

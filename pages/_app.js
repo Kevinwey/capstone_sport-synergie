@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import GlobalStyle from "../styles";
-import useSWR from "swr";
-
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function App({ Component, pageProps }) {
-  const { data, error, isLoading } = useSWR(
-    "https://sports.api.decathlon.com/sports?parents_only=true",
-    fetcher
-  );
-
+  const [sportData, setSportData] = useState([]);
+  const [groupData, setGroupData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [groupDict, setGroupDict] = useState({});
+  const [selectedGroups, setSelectedGroups] = useState([]);
+  const [selectedSport, setSelectedSport] = useState("");
+  const [level, setLevel] = useState("Beginner");
+  const [count, setCount] = useState(0);
+  const [showCount, setShowCount] = useState(false);
+  const [showAside, setShowAside] = useState(false);
+  const [sports, setSports] = useState([]);
   const [formData, setFormData] = useState({
     age: "",
     height: "",
@@ -40,12 +44,80 @@ export default function App({ Component, pageProps }) {
     ],
   });
 
-  const [sports, setSports] = useState([]);
-  const [selectedSport, setSelectedSport] = useState("");
-  const [level, setLevel] = useState("Beginner");
-  const [count, setCount] = useState(0);
-  const [showCount, setShowCount] = useState(false);
-  const [showAside, setShowAside] = useState(false);
+  const fetchData = async () => {
+    try {
+      const sportsResponse = await fetch(
+        "https://sports.api.decathlon.com/sports?parents_only=true"
+      );
+      const sportsData = await sportsResponse.json();
+      setSportData(sportsData.data);
+
+      const groupsResponse = await fetch(
+        "https://sports.api.decathlon.com/groups"
+      );
+      const groupsData = await groupsResponse.json();
+      setGroupData(groupsData.data);
+
+      const groupDict = {};
+      groupsData.data.forEach((group) => {
+        group.relationships.sports.data.forEach((sportData) => {
+          if (!groupDict[group.id]) {
+            groupDict[group.id] = [];
+          }
+          groupDict[group.id].push(sportData.id);
+        });
+      });
+      setGroupDict(groupDict);
+
+      setIsLoading(false);
+    } catch (error) {
+      setError(error);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  function filterSportsByGroupId(groupIds) {
+    const filteredSportIds = groupIds.reduce((acc, groupId) => {
+      return acc.concat(groupDict[groupId] || []);
+    }, []);
+    const filteredSports = sportData.filter((sport) => {
+      return filteredSportIds.includes(sport.id);
+    });
+    return filteredSports;
+  }
+
+  const handleSelectChange = (e) => {
+    const selectedGroupId = parseInt(e.target.value);
+    if (selectedGroups.includes(selectedGroupId)) {
+      setSelectedGroups(
+        selectedGroups.filter((groupId) => groupId !== selectedGroupId)
+      );
+    } else if (selectedGroups.length < 5) {
+      setSelectedGroups([...selectedGroups, selectedGroupId]);
+    }
+    console.log(filteredSports);
+  };
+
+  const filteredGroups = groupData.filter((group) =>
+    [
+      "Athletics",
+      "Combat sports",
+      "Water Aerobics",
+      "Adventure & Travel sports",
+      "Cycle sports ",
+      "Artistic and dance sports",
+      "Strength training",
+      "Football Sports",
+      "Shooting Sports",
+      "Relaxation training",
+    ].includes(group.attributes.name)
+  );
+
+  const filteredSports = filterSportsByGroupId(selectedGroups);
 
   useEffect(() => {
     setLevel(
@@ -59,14 +131,8 @@ export default function App({ Component, pageProps }) {
     );
   }, [selectedSport]);
 
-  useEffect(() => {
-    if (data) {
-      setSports(getRandomSports(data.data));
-    }
-  }, [data]);
-
-  function getRandomSports(sports) {
-    const randomSports = sports
+  function getRandomSports(filteredSports) {
+    const randomSports = filteredSports
       .slice()
       .sort(() => Math.random() - 0.5)
       .slice(0, 3);
@@ -74,8 +140,9 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleNewRoll() {
-    setSports(getRandomSports(data.data));
+    setSports(getRandomSports(filteredSports));
     setSelectedSport("");
+    console.log(sports);
   }
 
   const handleInvestClick = () => {
@@ -129,6 +196,7 @@ export default function App({ Component, pageProps }) {
 
   function handleSelectSport(sport) {
     setSelectedSport(sport);
+    console.log("selectedSport", selectedSport);
   }
 
   function handleInputChange(event) {
@@ -176,7 +244,6 @@ export default function App({ Component, pageProps }) {
         formData={formData}
         onChange={handleInputChange}
         handleChange={handleChange}
-        sports={sports}
         selectedSport={selectedSport}
         onSelectSport={handleSelectSport}
         onNewRoll={handleNewRoll}
@@ -187,6 +254,10 @@ export default function App({ Component, pageProps }) {
         count={count}
         showCount={showCount}
         showAside={showAside}
+        onSelectChange={handleSelectChange}
+        selectedGroups={selectedGroups}
+        filteredGroups={filteredGroups}
+        sports={sports}
       />
     </>
   );
