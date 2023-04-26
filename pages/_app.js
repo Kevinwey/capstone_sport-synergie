@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }) {
     age: "",
     height: "",
     weight: "",
-    intensity: "",
+    intensity: "50",
     category: "",
     physique: [
       { name: "Slim", checked: false },

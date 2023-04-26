@@ -1,10 +1,17 @@
 import styled from "styled-components";
 
 const StyledPageHeadline = styled.h2`
-  color: lightgrey;
+  position: absolute;
+  width: 203px;
+  height: 20px;
+  left: calc(50% - 203px / 2);
+  top: 40px;
+  font-family: var(--font1);
+  color: var(--1);
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 38px;
   text-align: center;
-  font-size: 2.5rem;
-  margin: 10px;
 `;
 
 export default StyledPageHeadline;

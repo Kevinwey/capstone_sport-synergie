@@ -20,6 +20,7 @@ export default createGlobalStyle`
   --4: #393E46;
   --5: #222831;
   --6: #171B22;
+  --7: #EEE9DA;
   --shadow1: 0px 1px 1px rgba(0, 0, 0, 0.5);
   --shadow2: 0px 2px 2px rgba(0, 0, 0, 0.25); 
 }
