@@ -54,8 +54,8 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledSelectButton = styled.button`
-  background-color: ${(props) => (props.selected ? "lightgrey" : "#F8F8FF")};
-  color: ${(props) => (props.selected ? "#0047AB" : "black")};
+  background-color: ${(props) => (props.selected ? "var(--3)" : "var(--1)")};
+  color: ${(props) => (props.selected ? "var(--1)" : "black")};
   border: 1px solid black;
   border-radius: 10px;
   padding: 10px;
@@ -76,7 +76,7 @@ const StyledDescription = styled.p`
   font-size: 1rem;
   line-height: 1.5;
   text-align: center;
-  color: #0047ab;
+  color: var(--1);
   width: 300px;
   border: 3px dotted grey;
   border-radius: 1rem;

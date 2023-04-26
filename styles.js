@@ -27,6 +27,7 @@ export default createGlobalStyle`
 
   body {
     margin: 0;
+    overflow-x: hidden;
     background-color: var(--5);
     font-family: var(--font1);
   }

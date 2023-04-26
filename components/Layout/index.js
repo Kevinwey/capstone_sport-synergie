@@ -11,7 +11,7 @@ export default function Layout() {
 
 const StyledAppHeadlineContainer = styled.div`
   position: absolute;
-  width: 375px;
+  width: 100vw;
   height: 40px;
   left: 0px;
   top: 0px;

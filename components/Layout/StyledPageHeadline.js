@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
 const StyledPageHeadline = styled.h2`
-  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 80px;
   width: 203px;
   height: 20px;
-  left: calc(50% - 203px / 2);
-  top: 40px;
   font-family: var(--font1);
   color: var(--1);
   font-weight: 600;

@@ -58,31 +58,7 @@ export default function Form({
       <legend>
         <StyledPageHeadline>MySettings</StyledPageHeadline>
       </legend>
-      {/*
-      <InputFields
-        label="Age*:"
-        type="number"
-        name="age"
-        value={age}
-        onChange={onChange}
-        required
-      />
-      <InputFields
-        label="Weight(kg)*:"
-        type="number"
-        name="weight"
-        value={weight}
-        onChange={onChange}
-        required
-      />
-      <InputFields
-        label="Height(cm)*:"
-        type="number"
-        name="height"
-        value={height}
-        onChange={onChange}
-        required
-      /> */}
+
       <StyledPhysiqueContainer>
         <h2>Physique</h2>
         <StyledRadioBoxContainer>
@@ -146,6 +122,7 @@ export default function Form({
           <StyledOutput>{intensity}%</StyledOutput>
         </StyledIntensityInput>
       </StyledIntensityContainer>
+
       {/* 
       <h2>Preference</h2>
 
@@ -172,6 +149,32 @@ export default function Form({
           </select>
         </StyledCategorySelect>
       </StyledCategoryContainer>
+      <StyledInputFields>
+        <InputFields
+          label="Age*"
+          type="number"
+          name="age"
+          value={age}
+          onChange={onChange}
+          required
+        />
+        <InputFields
+          label="Weight(kg)*"
+          type="number"
+          name="weight"
+          value={weight}
+          onChange={onChange}
+          required
+        />
+        <InputFields
+          label="Height(cm)*"
+          type="number"
+          name="height"
+          value={height}
+          onChange={onChange}
+          required
+        />
+      </StyledInputFields>
 
       {errors.length > 0 && (
         <ul>
@@ -181,27 +184,83 @@ export default function Form({
         </ul>
       )}
 
-      {/* <StyledButton type="submit" onClick={onNewRoll}>
+      <StyledSynergyButton type="submit" onClick={onNewRoll}>
         Synergy
-      </StyledButton> */}
+      </StyledSynergyButton>
     </StyledForm>
   );
 }
 
-const StyledCategorySelect = styled.div`
+const StyledInputFields = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  label {
+    display: flex;
+    margin-bottom: -5px;
+    color: var(--1);
+  }
+  input {
+    display: flex;
+    height: 28px;
+    margin-bottom: 10px;
+    align-items: flex-end;
+    border-radius: 10px;
+    line-height: 16px;
+    background-color: var(--4);
+    border: none;
+    color: var(--1);
+    &:focus {
+      outline: none;
+      background-color: var(--4);
+    }
+    &:disabled {
+      background-color: var(--4);
+    }
+  }
+`;
 
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: var(--font1);
-  color: var(--2);
-  font-weight: 490;
-  font-size: 16px;
-  width: 70%;
-  height: 80%;
+const StyledSynergyButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px;
+  position: relative;
+  bottom: 20px;
+  width: 60%;
+  height: 50px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-radius: 10px;
+  background: var(--3);
+  color: var(--1);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background: var(--2);
+    color: var(--3);
+  }
+`;
+
+const StyledWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  height: 100%;
+`;
+
+const StyledCategorySelect = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  width: 80%;
+  height: 117px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
 
   select {
     width: 100%;
@@ -211,13 +270,14 @@ const StyledCategorySelect = styled.div`
     border: none;
     text-align: center;
     font-family: var(--font1);
-    overflow: hidden;
 
     &:focus {
       outline: none;
     }
   }
   option {
+    font-weight: 700;
+    padding: 2.5px;
     &:checked {
       background: var(--4);
       color: var(--3);
@@ -226,22 +286,18 @@ const StyledCategorySelect = styled.div`
 `;
 
 const StyledCategoryContainer = styled.section`
-  position: absolute;
-  width: 90%;
-  height: 30%;
-
-  top: 480px;
-
+  width: 340px;
+  height: 120px;
+  margin-top: 20px;
   background: #393e46;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   border-radius: 22px;
 
   h2 {
     position: absolute;
-    top: -16px;
     left: 50%;
     transform: translateX(-50%);
-    margin: 0;
+    margin: -16px 0 0 0;
     color: var(--1);
     text-shadow: var(--shadow1);
     font-weight: 600;
@@ -252,30 +308,34 @@ const StyledCategoryContainer = styled.section`
 
 const StyledOutput = styled.output`
   line-height: 21px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
+  font-family: var(--font1);
+  position: absolute;
+  margin-top: 50px;
+  right: 50%;
+  transform: translateX(50%);
+  width: 40px;
+  height: 20px;
 `;
 
 const StyledIntensityInput = styled.div`
   display: flex;
-  flex-direction: column;
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  flex-direction: row;
+  gap: 15px;
+  width: 80%;
+  height: 80px;
+  margin: 0 auto;
+  text-align: center;
   font-family: var(--font1);
   color: var(--2);
   font-weight: 490;
   font-size: 14px;
-  width: 70%;
-  height: 35%;
-  gap: 2px;
   input {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 33px;
     appearance: none;
-    width: 100%;
+    width: 227px;
     cursor: pointer;
     outline: none;
     background: var(--2);
@@ -294,21 +354,18 @@ const StyledIntensityInput = styled.div`
 `;
 
 const StyledIntensityContainer = styled.section`
-  position: absolute;
-  width: 90%;
+  display: flex;
+  width: 340px;
   height: 11%;
-
-  top: 380px;
-
+  margin-top: 20px;
   background: #393e46;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   border-radius: 22px;
   h2 {
     position: absolute;
-    top: -16px;
     left: 50%;
     transform: translateX(-50%);
-    margin: 0;
+    margin: -16px 0 0 0;
     color: var(--1);
     text-shadow: var(--shadow1);
     font-weight: 600;
@@ -322,36 +379,36 @@ const StyledTimeBox = styled.div`
   flex-direction: row;
   gap: 15px;
   width: 80%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  text-align: center;
   font-family: var(--font1);
   color: var(--2);
   font-weight: 490;
   font-size: 14px;
   div {
     display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 55px;
     gap: 25px;
   }
 `;
 
 const StyledTimeContainer = styled.section`
-  position: absolute;
-  width: 90%;
+  display: flex;
+  width: 340px;
   height: 9%;
-
-  top: 300px;
-
+  margin-top: 170px;
   background: #393e46;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   border-radius: 22px;
   h2 {
     position: absolute;
-    top: -16px;
     left: 50%;
     transform: translateX(-50%);
-    margin: 0;
+    margin: -16px 0 0 0;
     color: var(--1);
     text-shadow: var(--shadow1);
     font-weight: 600;
