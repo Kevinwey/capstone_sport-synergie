@@ -33,30 +33,29 @@ export default function Form({
   function handleSubmit(event) {
     event.preventDefault();
 
-    let newErrors = [];
+    // let newErrors = [];
 
-    if (Number(age) < 12 || Number(age) > 99) {
-      newErrors.push("Please enter a age between 12 and 99.");
-    }
-    if (Number(weight) < 30 || Number(weight) > 180) {
-      newErrors.push("Please enter a weight between 30kg and 180kg.");
-    }
-    if (Number(height) < 60 || Number(height) > 220) {
-      newErrors.push("Please enter a height between 60cm and 220cm.");
-    }
+    // if (Number(age) < 12 || Number(age) > 99) {
+    //   newErrors.push("Please enter a age between 12 and 99.");
+    // }
+    // if (Number(weight) < 30 || Number(weight) > 180) {
+    //   newErrors.push("Please enter a weight between 30kg and 180kg.");
+    // }
+    // if (Number(height) < 60 || Number(height) > 220) {
+    //   newErrors.push("Please enter a height between 60cm and 220cm.");
+    // }
 
-    setErrors(newErrors);
+    // setErrors(newErrors);
 
-    if (newErrors.length === 0) {
-      event.target.reset();
-      router.push("/SelectorPage");
-    }
+    // if (newErrors.length === 0) {
+    //   event.target.reset();}
+    router.push("/SelectorPage");
   }
 
   return (
     <StyledForm aria-labelledby="user-details" onSubmit={handleSubmit}>
       <legend>
-        <StyledPageHeadline>MySettings</StyledPageHeadline>
+        <StyledPageHeadline>Settings</StyledPageHeadline>
       </legend>
 
       <StyledPhysiqueContainer>
@@ -149,7 +148,7 @@ export default function Form({
           </select>
         </StyledCategorySelect>
       </StyledCategoryContainer>
-      <StyledInputFields>
+      {/* <StyledInputFields>
         <InputFields
           label="Age*"
           type="number"
@@ -182,7 +181,7 @@ export default function Form({
             <StyledError key={error}>{error}</StyledError>
           ))}
         </ul>
-      )}
+      )} */}
 
       <StyledSynergyButton type="submit" onClick={onNewRoll}>
         Synergy
@@ -225,10 +224,10 @@ const StyledSynergyButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 40px;
+  margin: 30px;
   position: relative;
   bottom: 20px;
-  width: 60%;
+  width: 150px;
   height: 50px;
   font-size: 1.5rem;
   font-weight: 700;
@@ -236,12 +235,7 @@ const StyledSynergyButton = styled.button`
   background: var(--3);
   color: var(--1);
   border: none;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  &:hover {
-    background: var(--2);
-    color: var(--3);
-  }
+  box-shadow: var(--shadow2);
 `;
 
 const StyledWrapper = styled.div`

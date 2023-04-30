@@ -22,7 +22,7 @@ export default createGlobalStyle`
   --6: #171B22;
   --7: #EEE9DA;
   --shadow1: 0px 1px 1px rgba(0, 0, 0, 0.5);
-  --shadow2: 0px 2px 2px rgba(0, 0, 0, 0.25); 
+  --shadow2: 0px 3px 3px rgba(0, 0, 0, 0.25); 
 }
 
   body {

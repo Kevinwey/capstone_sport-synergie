@@ -10,10 +10,11 @@ export default function Layout() {
 }
 
 const StyledAppHeadlineContainer = styled.div`
-  position: absolute;
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100vw;
   height: 40px;
-  left: 0px;
-  top: 0px;
   background-color: var(--4);
 `;
