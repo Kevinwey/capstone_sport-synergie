@@ -1,79 +1,56 @@
 import Link from "next/link";
 import StyledPageHeadline from "../Layout/StyledPageHeadline";
 import styled from "styled-components";
-import { useState } from "react";
 
-export default function Profile({ formData, selectedSport, level, count }) {
-  const {
-    age,
-    height,
-    weight,
-    intensity,
-    physique,
-    fitnessLevel,
-    timePerWeek,
-  } = formData;
-
-  const [showDescription, setShowDescription] = useState({
-    intensity: false,
-    time: false,
-    level: false,
-    sport: false,
-    fitnessLevel: false,
-    physique: false,
-    name: false,
-  });
-
-  function handleClick(value) {
-    setShowDescription({
-      ...showDescription,
-      [value]: !showDescription[value],
-    });
-  }
+export default function Profile({
+  formData,
+  selectedSport,
+  level,
+  count,
+  sportsActive,
+  onSelectSport,
+  sportInfos,
+}) {
+  const { physique, fitnessLevel } = formData;
 
   return (
     <StyledContainer>
       <StyledPageHeadline>Profile</StyledPageHeadline>
+      {sportsActive.map((sport) => (
+        <StyledSelectButton key={sport.id} onClick={() => onSelectSport(sport)}>
+          {sport.attributes.name}
+        </StyledSelectButton>
+      ))}
       <StyledSportContainer>
         {selectedSport && (
-          <StyledSportName onClick={() => handleClick("name")}>
-            {showDescription.name ? "Sport" : selectedSport.attributes.name}
-          </StyledSportName>
+          <StyledSportName>{selectedSport.attributes.name}</StyledSportName>
+        )}
+        {sportInfos[selectedSport.attributes?.name] && (
+          <StyledIntensity>{`${
+            sportInfos[selectedSport.attributes.name].intensity
+          }%`}</StyledIntensity>
         )}
 
-        <StyledIntensity onClick={() => handleClick("intensity")}>
-          {showDescription.intensity ? "Intensity" : `${intensity}%`}
-        </StyledIntensity>
-
-        <StyledTime onClick={() => handleClick("time")}>
-          {showDescription.time
-            ? "Times"
-            : timePerWeek.map(
-                ({ name, checked }) => checked && <li key={name}>{name}</li>
-              )}
+        <StyledTime>
+          {sportInfos[selectedSport.attributes?.name] &&
+            sportInfos[selectedSport.attributes.name].timePerWeek}
         </StyledTime>
 
-        <StyledLevel onClick={() => handleClick("level")}>
-          {showDescription.level ? "Level" : level}
-        </StyledLevel>
+        <StyledLevel>{level}</StyledLevel>
         <StyledCount>{count}</StyledCount>
       </StyledSportContainer>
 
       <StyledBodyContainer>
-        <StyledList onClick={() => handleClick("physique")}>
-          {showDescription.physique
-            ? "Physique"
-            : physique.map(
-                ({ name, checked }) => checked && <li key={name}>{name}</li>
-              )}
+        <StyledList>
+          {physique.map(
+            ({ name, checked }) => checked && <li key={name}>{name}</li>
+          )}
         </StyledList>
 
-        <StyledList onClick={() => handleClick("fitnesslevel")}>
-          {showDescription.fitnesslevel
-            ? "FitnessLevel"
-            : fitnessLevel.map(
-                ({ name, checked }) => checked && <li key={name}>{name}</li>
-              )}
+        <StyledList>
+          {fitnessLevel.map(
+            ({ name, checked }) => checked && <li key={name}>{name}</li>
+          )}
         </StyledList>
       </StyledBodyContainer>
       <StyledLinkContainer>
@@ -83,6 +60,18 @@ export default function Profile({ formData, selectedSport, level, count }) {
     </StyledContainer>
   );
 }
+
+const StyledSelectButton = styled.button`
+  background-color: ${(props) => (props.selected ? "var(--3)" : "var(--1)")};
+  color: ${(props) => (props.selected ? "var(--1)" : "black")};
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  font-size: 1.2rem;
+  width: 200px;
+  box-shadow: var(--shadow2);
+`;
 
 const StyledLinkContainer = styled.div`
   display: flex;

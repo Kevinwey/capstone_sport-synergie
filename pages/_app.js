@@ -15,10 +15,9 @@ export default function App({ Component, pageProps }) {
   const [showCount, setShowCount] = useState(false);
   const [showAside, setShowAside] = useState(false);
   const [sports, setSports] = useState([]);
+  const [sportsActive, setSportsActive] = useState([]);
+  const [sportInfos, setSportInfos] = useState([]);
   const [formData, setFormData] = useState({
-    age: "",
-    height: "",
-    weight: "",
     intensity: "50",
     category: "",
     physique: [
@@ -35,12 +34,6 @@ export default function App({ Component, pageProps }) {
       { name: "2-3x", checked: false },
       { name: "3-4x", checked: false },
       { name: "4+", checked: false },
-    ],
-    preference: [
-      { name: "Teamsport", checked: false },
-      { name: "Individual sports", checked: false },
-      { name: "Indoor", checked: false },
-      { name: "Outdoor", checked: false },
     ],
   });
 
@@ -99,7 +92,6 @@ export default function App({ Component, pageProps }) {
     } else if (selectedGroups.length < 5) {
       setSelectedGroups([...selectedGroups, selectedGroupId]);
     }
-    console.log(filteredSports);
   };
 
   const filteredGroups = groupData.filter((group) =>
@@ -142,7 +134,6 @@ export default function App({ Component, pageProps }) {
   function handleNewRoll() {
     setSports(getRandomSports(filteredSports));
     setSelectedSport("");
-    console.log(sports);
   }
 
   const handleInvestClick = () => {
@@ -196,7 +187,19 @@ export default function App({ Component, pageProps }) {
 
   function handleSelectSport(sport) {
     setSelectedSport(sport);
-    console.log("selectedSport", selectedSport);
+  }
+
+  function handleAddSport(selectedSport) {
+    setSportsActive([...sportsActive, selectedSport]);
+    const updatedSportInfos = {
+      ...sportInfos,
+      [selectedSport.attributes.name]: {
+        timePerWeek: formData.timePerWeek.find((item) => item.checked).name,
+        intensity: formData.intensity,
+      },
+    };
+    setSportInfos(updatedSportInfos);
+    setSelectedSport("");
   }
 
   function handleInputChange(event) {
@@ -246,6 +249,7 @@ export default function App({ Component, pageProps }) {
         handleChange={handleChange}
         selectedSport={selectedSport}
         onSelectSport={handleSelectSport}
+        onAddSport={handleAddSport}
         onNewRoll={handleNewRoll}
         level={level}
         onDecrement={handleDecrement}
@@ -258,6 +262,8 @@ export default function App({ Component, pageProps }) {
         selectedGroups={selectedGroups}
         filteredGroups={filteredGroups}
         sports={sports}
+        sportsActive={sportsActive}
+        sportInfos={sportInfos}
       />
     </>
   );

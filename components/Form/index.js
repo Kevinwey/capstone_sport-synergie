@@ -1,10 +1,6 @@
-import InputFields from "../InputFields";
-import SelectInput from "../SelectInput";
 import StyledPageHeadline from "../Layout/StyledPageHeadline";
 import styled from "styled-components";
-import StyledButton from "../Layout/StyledButton";
 import Radiobox from "../Radiobox";
-import { useState } from "react";
 import { useRouter } from "next/router";
 
 export default function Form({
@@ -16,39 +12,12 @@ export default function Form({
   filteredGroups,
   onNewRoll,
 }) {
-  const {
-    age,
-    height,
-    weight,
-    intensity,
-    preference,
-    physique,
-    fitnessLevel,
-    timePerWeek,
-  } = formData;
+  const { intensity, physique, fitnessLevel, timePerWeek } = formData;
 
   const router = useRouter();
-  const [errors, setErrors] = useState([]);
 
   function handleSubmit(event) {
     event.preventDefault();
-
-    // let newErrors = [];
-
-    // if (Number(age) < 12 || Number(age) > 99) {
-    //   newErrors.push("Please enter a age between 12 and 99.");
-    // }
-    // if (Number(weight) < 30 || Number(weight) > 180) {
-    //   newErrors.push("Please enter a weight between 30kg and 180kg.");
-    // }
-    // if (Number(height) < 60 || Number(height) > 220) {
-    //   newErrors.push("Please enter a height between 60cm and 220cm.");
-    // }
-
-    // setErrors(newErrors);
-
-    // if (newErrors.length === 0) {
-    //   event.target.reset();}
     router.push("/SelectorPage");
   }
 
@@ -122,20 +91,6 @@ export default function Form({
         </StyledIntensityInput>
       </StyledIntensityContainer>
 
-      {/* 
-      <h2>Preference</h2>
-
-      {preference.map(({ name, checked }) => (
-        <Radiobox
-          name={"preference"}
-          type="checkbox"
-          key={name}
-          label={name}
-          checked={checked}
-          onChange={() => handleChange("preference", name)}
-        />
-      ))} */}
-
       <StyledCategoryContainer>
         <h2>Category</h2>
         <StyledCategorySelect>
@@ -148,40 +103,6 @@ export default function Form({
           </select>
         </StyledCategorySelect>
       </StyledCategoryContainer>
-      {/* <StyledInputFields>
-        <InputFields
-          label="Age*"
-          type="number"
-          name="age"
-          value={age}
-          onChange={onChange}
-          required
-        />
-        <InputFields
-          label="Weight(kg)*"
-          type="number"
-          name="weight"
-          value={weight}
-          onChange={onChange}
-          required
-        />
-        <InputFields
-          label="Height(cm)*"
-          type="number"
-          name="height"
-          value={height}
-          onChange={onChange}
-          required
-        />
-      </StyledInputFields>
-
-      {errors.length > 0 && (
-        <ul>
-          {errors.map((error) => (
-            <StyledError key={error}>{error}</StyledError>
-          ))}
-        </ul>
-      )} */}
 
       <StyledSynergyButton type="submit" onClick={onNewRoll}>
         Synergy
@@ -189,36 +110,6 @@ export default function Form({
     </StyledForm>
   );
 }
-
-const StyledInputFields = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 10px;
-  label {
-    display: flex;
-    margin-bottom: -5px;
-    color: var(--1);
-  }
-  input {
-    display: flex;
-    height: 28px;
-    margin-bottom: 10px;
-    align-items: flex-end;
-    border-radius: 10px;
-    line-height: 16px;
-    background-color: var(--4);
-    border: none;
-    color: var(--1);
-    &:focus {
-      outline: none;
-      background-color: var(--4);
-    }
-    &:disabled {
-      background-color: var(--4);
-    }
-  }
-`;
 
 const StyledSynergyButton = styled.button`
   display: flex;
@@ -236,14 +127,6 @@ const StyledSynergyButton = styled.button`
   color: var(--1);
   border: none;
   box-shadow: var(--shadow2);
-`;
-
-const StyledWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  height: 100%;
 `;
 
 const StyledCategorySelect = styled.div`

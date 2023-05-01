@@ -8,6 +8,7 @@ export default function SportList({
   selectedSport,
   onSelectSport,
   onNewRoll,
+  onAddSport,
 }) {
   return (
     <StyledSportContainer>
@@ -32,7 +33,12 @@ export default function SportList({
 
       <StyledButtonContainer>
         <StyledButton onClick={onNewRoll}>NewRoll</StyledButton>
-        <StyledLink href={"/ProfilePage"}>Start!</StyledLink>
+        <StyledLink
+          href={"/ProfilePage"}
+          onClick={() => onAddSport(selectedSport)}
+        >
+          Start!
+        </StyledLink>
       </StyledButtonContainer>
     </StyledSportContainer>
   );
