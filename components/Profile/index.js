@@ -1,6 +1,7 @@
 import Link from "next/link";
 import StyledPageHeadline from "../Layout/StyledPageHeadline";
 import styled from "styled-components";
+import { Fragment } from "react";
 
 export default function Profile({
   formData,
@@ -17,17 +18,14 @@ export default function Profile({
     <StyledContainer>
       <StyledPageHeadline>Profile</StyledPageHeadline>
       {sportsActive.map((sport) => (
-        <>
+        <Fragment key={sport.id}>
           {sport.attributes?.name !== selectedSport.attributes?.name && (
-            <StyledSelectButton
-              key={sport.id}
-              onClick={() => onSelectSport(sport)}
-            >
+            <StyledSelectButton onClick={() => onSelectSport(sport)}>
               {sport.attributes?.name}
             </StyledSelectButton>
           )}
           {sport.attributes?.name === selectedSport.attributes?.name && (
-            <StyledSportContainer key={sport.id}>
+            <StyledSportContainer>
               {selectedSport && (
                 <StyledSportName>{sport.attributes.name}</StyledSportName>
               )}
@@ -44,7 +42,7 @@ export default function Profile({
               <StyledCount>{count}</StyledCount>
             </StyledSportContainer>
           )}
-        </>
+        </Fragment>
       ))}
 
       <StyledBodyContainer>
