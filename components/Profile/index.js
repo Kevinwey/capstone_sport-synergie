@@ -17,28 +17,35 @@ export default function Profile({
     <StyledContainer>
       <StyledPageHeadline>Profile</StyledPageHeadline>
       {sportsActive.map((sport) => (
-        <StyledSelectButton key={sport.id} onClick={() => onSelectSport(sport)}>
-          {sport.attributes.name}
-        </StyledSelectButton>
+        <>
+          {sport.attributes.name !== selectedSport.attributes?.name && (
+            <StyledSelectButton
+              key={sport.id}
+              onClick={() => onSelectSport(sport)}
+            >
+              {sport.attributes.name}
+            </StyledSelectButton>
+          )}
+          {sport.attributes?.name === selectedSport.attributes?.name && (
+            <StyledSportContainer>
+              {selectedSport && (
+                <StyledSportName>{sport.attributes.name}</StyledSportName>
+              )}
+
+              <StyledIntensity>{`${
+                sportInfos[sport.attributes.name].intensity
+              }%`}</StyledIntensity>
+
+              <StyledTime>
+                {sportInfos[sport.attributes.name].timePerWeek}
+              </StyledTime>
+
+              <StyledLevel>{level}</StyledLevel>
+              <StyledCount>{count}</StyledCount>
+            </StyledSportContainer>
+          )}
+        </>
       ))}
-      <StyledSportContainer>
-        {selectedSport && (
-          <StyledSportName>{selectedSport.attributes.name}</StyledSportName>
-        )}
-        {sportInfos[selectedSport.attributes?.name] && (
-          <StyledIntensity>{`${
-            sportInfos[selectedSport.attributes.name].intensity
-          }%`}</StyledIntensity>
-        )}
-
-        <StyledTime>
-          {sportInfos[selectedSport.attributes?.name] &&
-            sportInfos[selectedSport.attributes.name].timePerWeek}
-        </StyledTime>
-
-        <StyledLevel>{level}</StyledLevel>
-        <StyledCount>{count}</StyledCount>
-      </StyledSportContainer>
 
       <StyledBodyContainer>
         <StyledList>

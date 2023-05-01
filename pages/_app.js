@@ -186,7 +186,11 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleSelectSport(sport) {
-    setSelectedSport(sport);
+    if (selectedSport && selectedSport.id === sport.id) {
+      setSelectedSport("");
+    } else {
+      setSelectedSport(sport);
+    }
   }
 
   function handleAddSport(selectedSport) {
