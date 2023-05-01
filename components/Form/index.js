@@ -18,19 +18,6 @@ export default function Form({
 
   function handleSubmit(event) {
     event.preventDefault();
-    const checkedPhysique = physique.filter((item) => item.checked);
-    const checkedFitnessLevel = fitnessLevel.filter((item) => item.checked);
-    const checkedTimePerWeek = timePerWeek.filter((item) => item.checked);
-    if (checkedPhysique.length === 0) {
-      alert("Please select your physique");
-      return;
-    } else if (checkedFitnessLevel.length === 0) {
-      alert("Please select your fitness level");
-      return;
-    } else if (checkedTimePerWeek.length === 0) {
-      alert("Please select your time per week");
-      return;
-    }
 
     router.push("/SelectorPage");
   }

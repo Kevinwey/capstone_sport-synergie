@@ -23,20 +23,20 @@ export default function App({ Component, pageProps }) {
     defaultValue: [],
   });
   const [formData, setFormData] = useState({
-    intensity: "",
+    intensity: "50",
     category: "",
     physique: [
       { name: "Slim", checked: false },
-      { name: "Normal", checked: false },
+      { name: "Normal", checked: true },
       { name: "Strong", checked: false },
     ],
     fitnessLevel: [
-      { name: "Unathletic", checked: false },
+      { name: "Unathletic", checked: true },
       { name: "Fit", checked: false },
       { name: "Muscular", checked: false },
     ],
     timePerWeek: [
-      { name: "2-3x", checked: false },
+      { name: "1-2x", checked: true },
       { name: "3-4x", checked: false },
       { name: "4+", checked: false },
     ],
