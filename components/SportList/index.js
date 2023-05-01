@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import StyledPageHeadline from "../Layout/StyledPageHeadline";
 import styled from "styled-components";
 import Link from "next/link";
@@ -9,60 +8,74 @@ export default function SportList({
   selectedSport,
   onSelectSport,
   onNewRoll,
+  onAddSport,
+  sportsActive,
 }) {
   return (
     <StyledSportContainer>
       <StyledPageHeadline>Sports</StyledPageHeadline>
 
-      {sports.map((sport) => (
-        <StyledSelectButton
-          type="button"
-          key={sport.id}
-          selected={sport === selectedSport}
-          onClick={() => onSelectSport(sport)}
-        >
-          {sport.attributes.name}
-        </StyledSelectButton>
-      ))}
+      {sports
+        .filter(
+          (sport) =>
+            !sportsActive.some((activeSport) => activeSport.id === sport.id)
+        )
+        .map((sport) => (
+          <StyledSelectButton
+            type="button"
+            key={sport.id}
+            selected={sport === selectedSport}
+            onClick={() => onSelectSport(sport)}
+          >
+            {sport.attributes?.name}
+          </StyledSelectButton>
+        ))}
 
       {selectedSport && (
         <StyledDescription>
-          {selectedSport.attributes.description}
+          {selectedSport.attributes?.description}
         </StyledDescription>
       )}
 
       <StyledButtonContainer>
         <StyledButton onClick={onNewRoll}>NewRoll</StyledButton>
-        <StyledLink href={"/ProfilePage"}>MyProfile</StyledLink>
+        {selectedSport ? (
+          <StyledLink
+            href={"/ProfilePage"}
+            onClick={() => onAddSport(selectedSport)}
+          >
+            Start!
+          </StyledLink>
+        ) : null}
       </StyledButtonContainer>
     </StyledSportContainer>
   );
 }
 
 const StyledLink = styled(Link)`
-  background-color: lightgrey;
-  color: #0047ab;
+  background-color: var(--3);
+  color: var(--1);
   padding: 10px 20px;
   border: none;
   border-radius: 10px;
   font-size: 1.5rem;
-  cursor: pointer;
   width: 150px;
   margin: 40px 10px;
   text-decoration: none;
   text-align: center;
+  box-shadow: var(--shadow2);
 `;
 
 const StyledSelectButton = styled.button`
-  background-color: ${(props) => (props.selected ? "lightgrey" : "#F8F8FF")};
-  color: ${(props) => (props.selected ? "#0047AB" : "black")};
+  background-color: ${(props) => (props.selected ? "var(--3)" : "var(--1)")};
+  color: ${(props) => (props.selected ? "var(--1)" : "black")};
   border: 1px solid black;
   border-radius: 10px;
   padding: 10px;
   margin: 10px;
   font-size: 1.2rem;
   width: 200px;
-  cursor: pointer;
+  box-shadow: var(--shadow2);
 `;
 
 const StyledSportContainer = styled.div`
@@ -76,7 +89,7 @@ const StyledDescription = styled.p`
   font-size: 1rem;
   line-height: 1.5;
   text-align: center;
-  color: #0047ab;
+  color: var(--1);
   width: 300px;
   border: 3px dotted grey;
   border-radius: 1rem;

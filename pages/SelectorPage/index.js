@@ -5,10 +5,14 @@ export default function SelectorPage({
   selectedSport,
   onSelectSport,
   onNewRoll,
+  onAddSport,
+  sportsActive,
 }) {
   return (
     <>
       <SportList
+        sportsActive={sportsActive}
+        onAddSport={onAddSport}
         sports={sports}
         selectedSport={selectedSport}
         onNewRoll={onNewRoll}
