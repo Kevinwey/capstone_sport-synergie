@@ -27,7 +27,7 @@ export default function Profile({
             </StyledSelectButton>
           )}
           {sport.attributes?.name === selectedSport.attributes?.name && (
-            <StyledSportContainer>
+            <StyledSportContainer key={sport.id}>
               {selectedSport && (
                 <StyledSportName>{sport.attributes.name}</StyledSportName>
               )}
