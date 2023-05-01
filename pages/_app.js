@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import GlobalStyle from "../styles";
+import useLocalStorageState from "use-local-storage-state";
 
 export default function App({ Component, pageProps }) {
   const [sportData, setSportData] = useState([]);
@@ -15,10 +16,14 @@ export default function App({ Component, pageProps }) {
   const [showCount, setShowCount] = useState(false);
   const [showAside, setShowAside] = useState(false);
   const [sports, setSports] = useState([]);
-  const [sportsActive, setSportsActive] = useState([]);
-  const [sportInfos, setSportInfos] = useState([]);
+  const [sportsActive, setSportsActive] = useLocalStorageState("activeSports", {
+    defaultValue: [],
+  });
+  const [sportInfos, setSportInfos] = useLocalStorageState("sportInfos", {
+    defaultValue: [],
+  });
   const [formData, setFormData] = useState({
-    intensity: "50",
+    intensity: "",
     category: "",
     physique: [
       { name: "Slim", checked: false },
@@ -203,7 +208,6 @@ export default function App({ Component, pageProps }) {
       },
     };
     setSportInfos(updatedSportInfos);
-    setSelectedSport("");
   }
 
   function handleInputChange(event) {

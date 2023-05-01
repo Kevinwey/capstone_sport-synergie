@@ -18,6 +18,20 @@ export default function Form({
 
   function handleSubmit(event) {
     event.preventDefault();
+    const checkedPhysique = physique.filter((item) => item.checked);
+    const checkedFitnessLevel = fitnessLevel.filter((item) => item.checked);
+    const checkedTimePerWeek = timePerWeek.filter((item) => item.checked);
+    if (checkedPhysique.length === 0) {
+      alert("Please select your physique");
+      return;
+    } else if (checkedFitnessLevel.length === 0) {
+      alert("Please select your fitness level");
+      return;
+    } else if (checkedTimePerWeek.length === 0) {
+      alert("Please select your time per week");
+      return;
+    }
+
     router.push("/SelectorPage");
   }
 
@@ -94,7 +108,12 @@ export default function Form({
       <StyledCategoryContainer>
         <h2>Category</h2>
         <StyledCategorySelect>
-          <select multiple value={selectedGroups} onChange={onSelectChange}>
+          <select
+            required
+            multiple
+            value={selectedGroups}
+            onChange={onSelectChange}
+          >
             {filteredGroups.map((group) => (
               <option key={group.id} value={group.id}>
                 {group.attributes.name}

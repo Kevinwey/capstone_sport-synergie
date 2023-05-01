@@ -18,12 +18,12 @@ export default function Profile({
       <StyledPageHeadline>Profile</StyledPageHeadline>
       {sportsActive.map((sport) => (
         <>
-          {sport.attributes.name !== selectedSport.attributes?.name && (
+          {sport.attributes?.name !== selectedSport.attributes?.name && (
             <StyledSelectButton
               key={sport.id}
               onClick={() => onSelectSport(sport)}
             >
-              {sport.attributes.name}
+              {sport.attributes?.name}
             </StyledSelectButton>
           )}
           {sport.attributes?.name === selectedSport.attributes?.name && (

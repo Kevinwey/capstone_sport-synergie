@@ -9,21 +9,27 @@ export default function SportList({
   onSelectSport,
   onNewRoll,
   onAddSport,
+  sportsActive,
 }) {
   return (
     <StyledSportContainer>
       <StyledPageHeadline>Sports</StyledPageHeadline>
 
-      {sports.map((sport) => (
-        <StyledSelectButton
-          type="button"
-          key={sport.id}
-          selected={sport === selectedSport}
-          onClick={() => onSelectSport(sport)}
-        >
-          {sport.attributes?.name}
-        </StyledSelectButton>
-      ))}
+      {sports
+        .filter(
+          (sport) =>
+            !sportsActive.some((activeSport) => activeSport.id === sport.id)
+        )
+        .map((sport) => (
+          <StyledSelectButton
+            type="button"
+            key={sport.id}
+            selected={sport === selectedSport}
+            onClick={() => onSelectSport(sport)}
+          >
+            {sport.attributes?.name}
+          </StyledSelectButton>
+        ))}
 
       {selectedSport && (
         <StyledDescription>
@@ -33,12 +39,14 @@ export default function SportList({
 
       <StyledButtonContainer>
         <StyledButton onClick={onNewRoll}>NewRoll</StyledButton>
-        <StyledLink
-          href={"/ProfilePage"}
-          onClick={() => onAddSport(selectedSport)}
-        >
-          Start!
-        </StyledLink>
+        {selectedSport ? (
+          <StyledLink
+            href={"/ProfilePage"}
+            onClick={() => onAddSport(selectedSport)}
+          >
+            Start!
+          </StyledLink>
+        ) : null}
       </StyledButtonContainer>
     </StyledSportContainer>
   );

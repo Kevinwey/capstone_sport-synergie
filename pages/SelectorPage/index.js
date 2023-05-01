@@ -6,10 +6,12 @@ export default function SelectorPage({
   onSelectSport,
   onNewRoll,
   onAddSport,
+  sportsActive,
 }) {
   return (
     <>
       <SportList
+        sportsActive={sportsActive}
         onAddSport={onAddSport}
         sports={sports}
         selectedSport={selectedSport}
