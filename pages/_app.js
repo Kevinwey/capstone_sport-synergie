@@ -45,13 +45,13 @@ export default function App({ Component, pageProps }) {
   const fetchData = async () => {
     try {
       const sportsResponse = await fetch(
-        "https://sports.api.decathlon.com/sports?parents_only=true"
+        "/api/sports"
       );
       const sportsData = await sportsResponse.json();
       setSportData(sportsData.data);
 
       const groupsResponse = await fetch(
-        "https://sports.api.decathlon.com/groups"
+        "/api/groups"
       );
       const groupsData = await groupsResponse.json();
       setGroupData(groupsData.data);
